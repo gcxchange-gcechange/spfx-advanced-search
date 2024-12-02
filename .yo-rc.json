@@ -1,0 +1,21 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "16.17.0",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.12.0"
+    },
+    "version": "1.19.0",
+    "libraryName": "spfx-advanced-search",
+    "libraryId": "6356d1b7-b63a-4205-8519-1471ccd671df",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "spfx-advanced-search",
+    "solutionShortDescription": "spfx-advanced-search description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

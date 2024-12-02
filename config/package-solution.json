@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "spfx-advanced-search-client-side-solution",
+    "id": "6356d1b7-b63a-4205-8519-1471ccd671df",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.19.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "spfx-advanced-search description"
+      },
+      "longDescription": {
+        "default": "spfx-advanced-search description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "spfx-advanced-search Feature",
+        "description": "The feature that activates elements of the spfx-advanced-search solution.",
+        "id": "a9275193-3ea1-4657-a148-fd7c4b043c0e",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/spfx-advanced-search.sppkg"
+  }
+}

@@ -34,9 +34,9 @@ const SearchForm = (props: ISearchFormProps) => {
 
         console.log("queryString", queryString);
 
-        // let a = document.createElement('a');
-        // a.href = "https://devgcx.sharepoint.com/sites/CM-test/SitePages/Oliver's-Test-Page.aspx?" + queryString;
-        // a.click();
+        let a = document.createElement('a');
+        a.href = "https://devgcx.sharepoint.com/sites/CM-test/SitePages/Oliver's-Test-Page.aspx?" + queryString;
+        a.click();
     };
 
     const ClearValues =  () => {
@@ -48,7 +48,6 @@ const SearchForm = (props: ISearchFormProps) => {
 
     return (
         <>
-        <h2>Hello, world</h2>
         <Stack horizontal verticalAlign='center'>
             <b>Job Title</b>
         </Stack>
@@ -57,7 +56,7 @@ const SearchForm = (props: ISearchFormProps) => {
         <Stack horizontal verticalAlign='center'>
             <b>Department</b>
         </Stack>
-        <Dropdown id='ddDepartment' options={props.departmentList} onChange={(e, option) => setDepartmentId(option.key.toString())} selectedKey={departmentId} /><br />
+        <Dropdown id='ddDepartment' options={props.departmentList} onChange={(e, option) => setDepartmentId(option.key.toString())} /><br />
 
         <Stack horizontal verticalAlign='center' tokens={stackTokens}>
             <b>Classification Code:</b>

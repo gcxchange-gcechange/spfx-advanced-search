@@ -84,9 +84,10 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
 
     return (
       <section className={`${styles.advancedSearch} ${hasTeamsContext ? styles.teams : ''}`}>
-      <div>
-        <SearchForm departmentList={departmentList} classificationCodeList={classificationCodeList} classificationLevelList={classificationLevelList} durationList={durationList} languageRequirementList={languageRequirementList} regionList={regionList} />
-      </div>
+        <div style={{fontSize: '20px', fontWeight: '600', paddingBottom: '20px'}}>Advanced Search :</div>
+        <div>
+          <SearchForm departmentList={departmentList} classificationCodeList={classificationCodeList} classificationLevelList={classificationLevelList} durationList={durationList} languageRequirementList={languageRequirementList} regionList={regionList} />
+        </div>
     </section>
     );
   }

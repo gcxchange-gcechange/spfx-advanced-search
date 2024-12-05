@@ -1,4 +1,5 @@
-import { Stack, TextField, Button, IStackTokens, Dropdown, IDropdownOption } from "@fluentui/react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Stack, TextField, PrimaryButton, DefaultButton, IStackTokens, Dropdown, IDropdownOption  } from "@fluentui/react";
 import * as React from "react";
 
 export interface ISearchFormProps {
@@ -10,7 +11,18 @@ export interface ISearchFormProps {
     regionList: any;
 }
 
+enum AdvancedSearchSessionKeys {
+    JobTitle = 'gcx-cm-jobTitle',
+    ClassificationCodeId = 'gcx-cm-classificationCodeId',
+    ClassificationLevelId = 'gcx-cm-classificationLevelId',
+    DepartmentId = 'gcx-cm-departmentId',
+    DurationId = 'gcx-cm-durationId',
+    LanguageRequirementId = 'gcx-cm-languageRequirementId',
+    RegionId = 'gcx-cm-regionId',
+}
+
 const SearchForm = (props: ISearchFormProps) => {
+
     const [jobTitle, setJobTitle] = React.useState('');
     const [classificationCodeId, setClassificationCodeId] = React.useState('');
     const [classificationLevelId, setClassificationLevelId] = React.useState('');
@@ -19,70 +31,192 @@ const SearchForm = (props: ISearchFormProps) => {
     const [languageRequirementId, setLanguageRequirementId] = React.useState('');
     const [regionId, setRegionId] = React.useState('');
 
-    const stackTokens: IStackTokens = { childrenGap: 20 };
+    React.useEffect(() => {
+        sessionStorage.setItem(AdvancedSearchSessionKeys.JobTitle, jobTitle);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.ClassificationCodeId, classificationCodeId);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.ClassificationLevelId, classificationLevelId);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.DepartmentId, departmentId);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.DurationId, durationId);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.LanguageRequirementId, languageRequirementId);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.RegionId, regionId);
+    }, [jobTitle, classificationCodeId, classificationLevelId, departmentId, durationId, languageRequirementId, regionId]);
 
-    const SubmitSearch =  async () => {
-        let queryString:string = '';
-
-        queryString = queryString.concat("Title=", jobTitle != '' ? jobTitle : '*');
-        queryString = queryString.concat("&DepartmentId=", departmentId != '' ? departmentId : '*');
-        queryString = queryString.concat("&ClassificationCodeId=", classificationCodeId != '' ? classificationCodeId : '*');
-        queryString = queryString.concat("&ClassificationLevelId=", classificationLevelId != '' ? classificationLevelId : '*');
-        queryString = queryString.concat("&LanguageRequirementId=", languageRequirementId != '' ? languageRequirementId : '*');
-        queryString = queryString.concat("&RegionId=", regionId != '' ? regionId : '*');
-        queryString = queryString.concat("&DurationId=", durationId != '' ? durationId : '*');
-
-        console.log("queryString", queryString);
-
-        let a = document.createElement('a');
-        a.href = "https://devgcx.sharepoint.com/sites/CM-test/SitePages/Oliver's-Test-Page.aspx?" + queryString;
-        a.click();
-    };
-
-    const ClearValues =  () => {
+    const ClearValues = (): void => {
         setJobTitle('');
         setDepartmentId('');
+        setClassificationCodeId('');
+        setClassificationLevelId('');
+        setLanguageRequirementId('');
+        setLanguageRequirementId('');
+        setRegionId('');
+        setDurationId('');
+
+        sessionStorage.removeItem(AdvancedSearchSessionKeys.JobTitle);
+        sessionStorage.removeItem(AdvancedSearchSessionKeys.ClassificationCodeId);
+        sessionStorage.removeItem(AdvancedSearchSessionKeys.ClassificationLevelId);
+        sessionStorage.removeItem(AdvancedSearchSessionKeys.DepartmentId);
+        sessionStorage.removeItem(AdvancedSearchSessionKeys.DurationId);
+        sessionStorage.removeItem(AdvancedSearchSessionKeys.LanguageRequirementId);
+        sessionStorage.removeItem(AdvancedSearchSessionKeys.RegionId);
     };
 
-    console.log("departmentId", departmentId);
+    const titleStyle = {
+        fontWeight: '500', 
+        paddingBottom: '4px', 
+        fontSize: '14px'
+    }
+
+    const titleStyleNoPadding = {
+        ...titleStyle,
+        paddingBottom: 'unset'
+    };
+
+    const borderColor: string = '#c2c2c2';
+    const stackTokens: IStackTokens = { childrenGap: 20 };
 
     return (
         <>
-        <Stack horizontal verticalAlign='center'>
-            <b>Job Title</b>
-        </Stack>
-        <TextField id='txtJobTitle' onChange={(e) => setJobTitle(e.currentTarget.value)} value={jobTitle} /><br />
+        <Stack>
+            <Stack horizontal verticalAlign='center'>
+                <b style={titleStyle}>
+                    Job Title
+                </b>
+            </Stack>
+            <TextField 
+                id='txtJobTitle' 
+                styles={{fieldGroup: { borderColor: borderColor }}}  
+                onChange={(e) => setJobTitle(e.currentTarget.value)} 
+                value={jobTitle} 
+            /><br />
 
-        <Stack horizontal verticalAlign='center'>
-            <b>Department</b>
-        </Stack>
-        <Dropdown id='ddDepartment' options={props.departmentList} onChange={(e, option) => setDepartmentId(option.key.toString())} /><br />
+            <Stack horizontal verticalAlign='center'>
+                <b style={titleStyle}>
+                    Department
+                </b>
+            </Stack>
+            <Dropdown 
+                id='ddDepartment' 
+                styles={{title: { borderColor: borderColor }}} 
+                options={props.departmentList} 
+                onChange={(e, option) => { 
+                    if (option) {
+                        setDepartmentId(option.key.toString());
+                    }
+                    else {
+                        setDepartmentId('')
+                    }
+                }}
+                selectedKey={departmentId ? parseInt(departmentId, 10) : null} 
+            /><br />
 
-        <Stack horizontal verticalAlign='center' tokens={stackTokens}>
-            <b>Classification Code:</b>
-            <Dropdown id='ddClassificationCode' options={props.classificationCodeList} onChange={(e, option) => setClassificationCodeId(option.key.toString())} />
-            <b>Level:</b>
-            <Dropdown id='ddClassificationLevel' options={props.classificationLevelList} onChange={(e, option) => setClassificationLevelId(option.key.toString())} />
-        </Stack><br />
+            <Stack horizontal verticalAlign='center' tokens={stackTokens}>
+                <b style={titleStyleNoPadding}>
+                    Classification Code:
+                </b>
+                <Dropdown 
+                    id='ddClassificationCode' 
+                    styles={{title: { borderColor: borderColor }}} 
+                    options={props.classificationCodeList} 
+                    onChange={(e, option) => { 
+                        if (option) {
+                            setClassificationCodeId(option.key.toString());
+                        }
+                        else {
+                            setClassificationCodeId('')
+                        }
+                    }}
+                    selectedKey={classificationCodeId ? parseInt(classificationCodeId, 10) : null} 
+                />
+                <b style={titleStyleNoPadding}>
+                    Level:
+                </b>
+                <Dropdown 
+                    id='ddClassificationLevel' 
+                    styles={{title: { borderColor: borderColor }}} 
+                    options={props.classificationLevelList} 
+                    onChange={(e, option) => { 
+                        if (option) {
+                            setClassificationLevelId(option.key.toString());
+                        }
+                        else {
+                            setClassificationLevelId('')
+                        }
+                    }}
+                    selectedKey={classificationLevelId ? parseInt(classificationLevelId, 10) : null} 
+                />
+            </Stack><br />
 
-        <Stack horizontal verticalAlign='center'>
-          <b>Language Requirement</b>
-        </Stack>
-        <Dropdown id='ddLanguageRequirement' options={props.languageRequirementList} onChange={(e, option) => setLanguageRequirementId(option.key.toString())} /><br />
+            <Stack horizontal verticalAlign='center'>
+            <b style={titleStyle}>
+                Language Requirement
+            </b>
+            </Stack>
+            <Dropdown 
+                id='ddLanguageRequirement' 
+                styles={{title: { borderColor: borderColor }}} 
+                options={props.languageRequirementList} 
+                onChange={(e, option) => { 
+                    if (option) {
+                        setLanguageRequirementId(option.key.toString());
+                    }
+                    else {
+                        setLanguageRequirementId('')
+                    }
+                }}
+                selectedKey={languageRequirementId ? parseInt(languageRequirementId, 10) : null} 
+            /><br />
 
-        <Stack horizontal verticalAlign='center'>
-          <b>Region</b>
-        </Stack>
-        <Dropdown id='ddRegion' options={props.regionList} onChange={(e, option) => setRegionId(option.key.toString())} /><br />
+            <Stack horizontal verticalAlign='center'>
+            <b style={titleStyle}>
+                Region
+            </b>
+            </Stack>
+            <Dropdown 
+                id='ddRegion' 
+                styles={{title: { borderColor: borderColor }}} 
+                options={props.regionList} 
+                onChange={(e, option) => { 
+                    if (option) {
+                        setRegionId(option.key.toString());
+                    }
+                    else {
+                        setRegionId('')
+                    }
+                }} 
+                selectedKey={regionId ? parseInt(regionId, 10) : null} 
+            /><br />
 
-        <Stack horizontal verticalAlign='center'>
-          <b>Duration</b>
-        </Stack>
-        <Dropdown id='ddDuration' options={props.durationList} onChange={(e, option) => setDurationId(option.key.toString())} /><br />
+            <Stack horizontal verticalAlign='center'>
+            <b style={titleStyle}>
+                Duration
+            </b>
+            </Stack>
+            <Dropdown 
+                id='ddDuration' 
+                styles={{title: { borderColor: borderColor }}} 
+                options={props.durationList} 
+                onChange={(e, option) => { 
+                    if (option) {
+                        setDurationId(option.key.toString());
+                    }
+                    else {
+                        setDurationId('')
+                    }
+                }} 
+                selectedKey={durationId ? parseInt(durationId, 10) : null} 
+            /><br />
 
-        <Stack horizontal verticalAlign='center' tokens={stackTokens}>
-            <Button onClick={() => {SubmitSearch();}}>Search</Button>
-            <Button onClick={() => {ClearValues();}}>Clear values</Button>
+            <Stack horizontal verticalAlign='center' horizontalAlign="end" tokens={stackTokens}>
+                <DefaultButton id='advancedSearch-Clear'
+                    onClick={() => {
+                        ClearValues();
+                    }}>
+                    Clear
+                </DefaultButton>
+                <PrimaryButton id='advancedSearch-Search'>
+                    Search
+                </PrimaryButton>
+            </Stack>
         </Stack>
         </>
     );

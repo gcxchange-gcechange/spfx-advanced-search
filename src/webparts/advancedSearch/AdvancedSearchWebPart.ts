@@ -11,7 +11,7 @@ import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import * as strings from 'AdvancedSearchWebPartStrings';
 import AdvancedSearch from './components/AdvancedSearch';
 import { IAdvancedSearchProps } from './components/IAdvancedSearchProps';
-import { Language } from './Globals';
+import { Globals, Language } from './Globals';
 
 export interface IAdvancedSearchWebPartProps {
   language: string;
@@ -40,6 +40,8 @@ export default class AdvancedSearchWebPart extends BaseClientSideWebPart<IAdvanc
   }
 
   protected onInit(): Promise<void> {
+    Globals.setLanguage(this.properties.language);
+
     return this._getEnvironmentMessage().then(message => {
       this._environmentMessage = message;
     });
@@ -113,6 +115,7 @@ export default class AdvancedSearchWebPart extends BaseClientSideWebPart<IAdvanc
               groupFields: [
                 PropertyPaneTextField('language', {
                   label: strings.LanguageFieldLabel,
+                  value: Globals.getLanguage(),
                   placeholder: `${Language.English} or ${Language.French}`
                 })
               ]
@@ -125,7 +128,9 @@ export default class AdvancedSearchWebPart extends BaseClientSideWebPart<IAdvanc
 
   public onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): void {
     switch(propertyPath) {
-      debugger;
+      case 'language':
+        Globals.setLanguage(newValue);
+        break;
     }
   }
 }

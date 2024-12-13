@@ -8,6 +8,8 @@ import "@pnp/sp/items";
 import { SPFI } from '@pnp/sp';
 import { getSP } from '../../../pnpjsConfig';
 import SearchForm from './SearchForm';
+import { Globals } from '../Globals';
+import { PrimaryButton, Icon } from '@fluentui/react';
 
 var classificationCodeList: IDropdownOption[]=[];
 var classificationLevelList: IDropdownOption[]=[];
@@ -17,6 +19,19 @@ var languageRequirementList: IDropdownOption[]=[];
 var regionList: IDropdownOption[]=[];
 
 export default class AdvancedSearch extends React.Component<IAdvancedSearchProps> {
+  strings = Globals.getStrings();
+
+  buttonStyle = {
+    fontSize: '16px',
+    padding: '0',
+    minWidth: '25px',
+    minHeight: '25px',
+    borderRadius: '20px',
+    background: 'unset',
+    border: '0',
+    color: 'black'
+  };
+
   public constructor(props: IAdvancedSearchProps, state:IAdvancedSearchProps){ 
     super(props); 
     this.state = { 
@@ -82,10 +97,25 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
       hasTeamsContext,
     } = this.props;
 
+    const open = Globals.isOpen();
+
     return (
       <section className={`${styles.advancedSearch} ${hasTeamsContext ? styles.teams : ''}`}>
-        <div style={{fontSize: '20px', fontWeight: '600', paddingBottom: '20px'}}>Advanced Search :</div>
-        <div>
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+          <div style={{fontSize: '20px', fontWeight: '600', paddingBottom: '20px', display: 'inline-block'}}>
+            {this.strings.AdvancedSearch} :
+          </div>
+          <div style={{float: 'right'}}>
+            <PrimaryButton style={this.buttonStyle} onClick={() => {
+              Globals.setOpen(!open);
+              this.forceUpdate();
+            }}>
+              <Icon iconName={open ? 'ChevronUp' : 'ChevronDown'} />
+            </PrimaryButton>
+          </div>
+        </div>
+        
+        <div style={{display: open ? 'block' : 'none'}}>
           <SearchForm departmentList={departmentList} classificationCodeList={classificationCodeList} classificationLevelList={classificationLevelList} durationList={durationList} languageRequirementList={languageRequirementList} regionList={regionList} />
         </div>
     </section>

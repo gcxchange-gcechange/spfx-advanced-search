@@ -20,6 +20,7 @@ declare interface IAdvancedSearchWebPartStrings {
   Duration: string
   Clear: string;
   Search: string;
+  AdvancedSearch: string;
 }
 
 declare module 'AdvancedSearchWebPartStrings' {

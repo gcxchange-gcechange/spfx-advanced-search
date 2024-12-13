@@ -20,6 +20,7 @@ define([], function() {
       "Location": "Emplacement",
       "Duration": "Durée",
       "Clear": "Effacer",
-      "Search": "Recherche"
+      "Search": "Recherche",
+      "AdvancedSearch": "Recherche avancée"
     }
   });

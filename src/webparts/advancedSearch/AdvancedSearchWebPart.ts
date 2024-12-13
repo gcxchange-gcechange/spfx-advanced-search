@@ -11,9 +11,10 @@ import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import * as strings from 'AdvancedSearchWebPartStrings';
 import AdvancedSearch from './components/AdvancedSearch';
 import { IAdvancedSearchProps } from './components/IAdvancedSearchProps';
+import { Language } from './Globals';
 
 export interface IAdvancedSearchWebPartProps {
-  description: string;
+  language: string;
 }
 
 export default class AdvancedSearchWebPart extends BaseClientSideWebPart<IAdvancedSearchWebPartProps> {
@@ -25,7 +26,7 @@ export default class AdvancedSearchWebPart extends BaseClientSideWebPart<IAdvanc
     const element: React.ReactElement<IAdvancedSearchProps> = React.createElement(
       AdvancedSearch,
       {
-        description: this.properties.description,
+        language: this.properties.language,
         isDarkTheme: this._isDarkTheme,
         environmentMessage: this._environmentMessage,
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
@@ -110,8 +111,9 @@ export default class AdvancedSearchWebPart extends BaseClientSideWebPart<IAdvanc
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
+                PropertyPaneTextField('language', {
+                  label: strings.LanguageFieldLabel,
+                  placeholder: `${Language.English} or ${Language.French}`
                 })
               ]
             }
@@ -119,5 +121,11 @@ export default class AdvancedSearchWebPart extends BaseClientSideWebPart<IAdvanc
         }
       ]
     };
+  }
+
+  public onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): void {
+    switch(propertyPath) {
+      debugger;
+    }
   }
 }

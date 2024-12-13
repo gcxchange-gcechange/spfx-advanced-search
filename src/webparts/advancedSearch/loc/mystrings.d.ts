@@ -1,7 +1,7 @@
 declare interface IAdvancedSearchWebPartStrings {
   PropertyPaneDescription: string;
   BasicGroupName: string;
-  DescriptionFieldLabel: string;
+  LanguageFieldLabel: string;
   AppLocalEnvironmentSharePoint: string;
   AppLocalEnvironmentTeams: string;
   AppLocalEnvironmentOffice: string;
@@ -11,6 +11,15 @@ declare interface IAdvancedSearchWebPartStrings {
   AppOfficeEnvironment: string;
   AppOutlookEnvironment: string;
   UnknownEnvironment: string;
+  JobTitle: string;
+  Department: string;
+  ClassificationCode: string;
+  Level: string;
+  LanguageRequirement: string;
+  Location: string;
+  Duration: string
+  Clear: string;
+  Search: string;
 }
 
 declare module 'AdvancedSearchWebPartStrings' {

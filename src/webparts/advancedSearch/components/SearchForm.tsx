@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Stack, TextField, PrimaryButton, DefaultButton, IStackTokens, Dropdown, IDropdownOption  } from "@fluentui/react";
 import * as React from "react";
+import { Globals } from "../Globals";
 
 export interface ISearchFormProps {
     classificationCodeList: IDropdownOption[];
@@ -22,6 +23,7 @@ enum AdvancedSearchSessionKeys {
 }
 
 const SearchForm = (props: ISearchFormProps) => {
+    const strings = Globals.getStrings();
 
     const [jobTitle, setJobTitle] = React.useState('');
     const [classificationCodeId, setClassificationCodeId] = React.useState('');
@@ -79,7 +81,7 @@ const SearchForm = (props: ISearchFormProps) => {
         <Stack>
             <Stack horizontal verticalAlign='center'>
                 <b style={titleStyle}>
-                    Job Title
+                    {strings.JobTitle}
                 </b>
             </Stack>
             <TextField 
@@ -91,7 +93,7 @@ const SearchForm = (props: ISearchFormProps) => {
 
             <Stack horizontal verticalAlign='center'>
                 <b style={titleStyle}>
-                    Department
+                    {strings.Department}
                 </b>
             </Stack>
             <Dropdown 
@@ -111,7 +113,7 @@ const SearchForm = (props: ISearchFormProps) => {
 
             <Stack horizontal verticalAlign='center' tokens={stackTokens}>
                 <b style={titleStyleNoPadding}>
-                    Classification Code:
+                    {strings.ClassificationCode}:
                 </b>
                 <Dropdown 
                     id='ddClassificationCode' 
@@ -128,7 +130,7 @@ const SearchForm = (props: ISearchFormProps) => {
                     selectedKey={classificationCodeId ? parseInt(classificationCodeId, 10) : null} 
                 />
                 <b style={titleStyleNoPadding}>
-                    Level:
+                    {strings.Level}:
                 </b>
                 <Dropdown 
                     id='ddClassificationLevel' 
@@ -148,7 +150,7 @@ const SearchForm = (props: ISearchFormProps) => {
 
             <Stack horizontal verticalAlign='center'>
             <b style={titleStyle}>
-                Language Requirement
+                {strings.LanguageRequirement}
             </b>
             </Stack>
             <Dropdown 
@@ -168,7 +170,7 @@ const SearchForm = (props: ISearchFormProps) => {
 
             <Stack horizontal verticalAlign='center'>
             <b style={titleStyle}>
-                Region
+                {strings.Location}
             </b>
             </Stack>
             <Dropdown 
@@ -188,7 +190,7 @@ const SearchForm = (props: ISearchFormProps) => {
 
             <Stack horizontal verticalAlign='center'>
             <b style={titleStyle}>
-                Duration
+                {strings.Duration}
             </b>
             </Stack>
             <Dropdown 
@@ -211,10 +213,10 @@ const SearchForm = (props: ISearchFormProps) => {
                     onClick={() => {
                         ClearValues();
                     }}>
-                    Clear
+                    {strings.Clear}
                 </DefaultButton>
                 <PrimaryButton id='advancedSearch-Search'>
-                    Search
+                    {strings.Search}
                 </PrimaryButton>
             </Stack>
         </Stack>

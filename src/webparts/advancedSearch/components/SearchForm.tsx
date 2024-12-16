@@ -12,7 +12,7 @@ export interface ISearchFormProps {
     regionList: any;
 }
 
-enum AdvancedSearchSessionKeys {
+export enum AdvancedSearchSessionKeys {
     JobTitle = 'gcx-cm-jobTitle',
     ClassificationCodeId = 'gcx-cm-classificationCodeId',
     ClassificationLevelId = 'gcx-cm-classificationLevelId',
@@ -34,13 +34,7 @@ const SearchForm = (props: ISearchFormProps) => {
     const [regionId, setRegionId] = React.useState('');
 
     React.useEffect(() => {
-        sessionStorage.setItem(AdvancedSearchSessionKeys.JobTitle, jobTitle);
-        sessionStorage.setItem(AdvancedSearchSessionKeys.ClassificationCodeId, classificationCodeId);
-        sessionStorage.setItem(AdvancedSearchSessionKeys.ClassificationLevelId, classificationLevelId);
-        sessionStorage.setItem(AdvancedSearchSessionKeys.DepartmentId, departmentId);
-        sessionStorage.setItem(AdvancedSearchSessionKeys.DurationId, durationId);
-        sessionStorage.setItem(AdvancedSearchSessionKeys.LanguageRequirementId, languageRequirementId);
-        sessionStorage.setItem(AdvancedSearchSessionKeys.RegionId, regionId);
+        SetSessionKeys()
     }, [jobTitle, classificationCodeId, classificationLevelId, departmentId, durationId, languageRequirementId, regionId]);
 
     const ClearValues = (): void => {
@@ -53,6 +47,19 @@ const SearchForm = (props: ISearchFormProps) => {
         setRegionId('');
         setDurationId('');
 
+        ClearSessionKeys();
+    };
+    const SetSessionKeys = (): void => {
+        sessionStorage.setItem(AdvancedSearchSessionKeys.JobTitle, jobTitle);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.ClassificationCodeId, classificationCodeId);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.ClassificationLevelId, classificationLevelId);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.DepartmentId, departmentId);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.DurationId, durationId);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.LanguageRequirementId, languageRequirementId);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.RegionId, regionId);
+    }
+
+    const ClearSessionKeys = (): void => {
         sessionStorage.removeItem(AdvancedSearchSessionKeys.JobTitle);
         sessionStorage.removeItem(AdvancedSearchSessionKeys.ClassificationCodeId);
         sessionStorage.removeItem(AdvancedSearchSessionKeys.ClassificationLevelId);
@@ -60,7 +67,7 @@ const SearchForm = (props: ISearchFormProps) => {
         sessionStorage.removeItem(AdvancedSearchSessionKeys.DurationId);
         sessionStorage.removeItem(AdvancedSearchSessionKeys.LanguageRequirementId);
         sessionStorage.removeItem(AdvancedSearchSessionKeys.RegionId);
-    };
+    }
 
     const titleStyle = {
         fontWeight: '500', 
@@ -75,6 +82,12 @@ const SearchForm = (props: ISearchFormProps) => {
 
     const borderColor: string = '#c2c2c2';
     const stackTokens: IStackTokens = { childrenGap: 20 };
+
+    if (Globals.isOpen()){
+        SetSessionKeys();
+    } else {
+        ClearSessionKeys();
+    }
 
     return (
         <>

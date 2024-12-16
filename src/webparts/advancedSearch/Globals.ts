@@ -8,6 +8,15 @@ export enum Language {
 
 export class Globals {
     private static _language: string;
+    private static _isOpen: boolean = false;
+
+    public static isOpen(): boolean {
+        return this._isOpen;
+    }
+
+    public static setOpen(state: boolean):void {
+        this._isOpen = state;
+    }
 
     public static getLanguage(): string {
         return this._language;

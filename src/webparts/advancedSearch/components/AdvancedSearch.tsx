@@ -9,7 +9,7 @@ import { SPFI } from '@pnp/sp';
 import { getSP } from '../../../pnpjsConfig';
 import SearchForm from './SearchForm';
 import { Globals } from '../Globals';
-import { PrimaryButton, Icon } from '@fluentui/react';
+import { DefaultButton, Icon } from '@fluentui/react';
 
 var classificationCodeList: IDropdownOption[]=[];
 var classificationLevelList: IDropdownOption[]=[];
@@ -26,8 +26,6 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
     padding: '0',
     minWidth: '25px',
     minHeight: '25px',
-    borderRadius: '20px',
-    background: 'unset',
     border: '0',
     color: 'black'
   };
@@ -106,12 +104,12 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
             {this.strings.AdvancedSearch} :
           </div>
           <div style={{float: 'right'}}>
-            <PrimaryButton style={this.buttonStyle} onClick={() => {
+            <DefaultButton style={this.buttonStyle} onClick={() => {
               Globals.setOpen(!open);
               this.forceUpdate();
             }}>
               <Icon iconName={open ? 'ChevronUp' : 'ChevronDown'} />
-            </PrimaryButton>
+            </DefaultButton>
           </div>
         </div>
         

@@ -33,22 +33,6 @@ const SearchForm = (props: ISearchFormProps) => {
     const [languageRequirementId, setLanguageRequirementId] = React.useState('');
     const [regionId, setRegionId] = React.useState('');
 
-    React.useEffect(() => {
-        SetSessionKeys()
-    }, [jobTitle, classificationCodeId, classificationLevelId, departmentId, durationId, languageRequirementId, regionId]);
-
-    const ClearValues = (): void => {
-        setJobTitle('');
-        setDepartmentId('');
-        setClassificationCodeId('');
-        setClassificationLevelId('');
-        setLanguageRequirementId('');
-        setLanguageRequirementId('');
-        setRegionId('');
-        setDurationId('');
-
-        ClearSessionKeys();
-    };
     const SetSessionKeys = (): void => {
         sessionStorage.setItem(AdvancedSearchSessionKeys.JobTitle, jobTitle);
         sessionStorage.setItem(AdvancedSearchSessionKeys.ClassificationCodeId, classificationCodeId);
@@ -68,6 +52,23 @@ const SearchForm = (props: ISearchFormProps) => {
         sessionStorage.removeItem(AdvancedSearchSessionKeys.LanguageRequirementId);
         sessionStorage.removeItem(AdvancedSearchSessionKeys.RegionId);
     }
+
+    const ClearValues = (): void => {
+        setJobTitle('');
+        setDepartmentId('');
+        setClassificationCodeId('');
+        setClassificationLevelId('');
+        setLanguageRequirementId('');
+        setLanguageRequirementId('');
+        setRegionId('');
+        setDurationId('');
+
+        ClearSessionKeys();
+    };
+
+    React.useEffect(() => {
+        SetSessionKeys();
+    }, [jobTitle, classificationCodeId, classificationLevelId, departmentId, durationId, languageRequirementId, regionId]);
 
     const titleStyle = {
         fontWeight: '500', 

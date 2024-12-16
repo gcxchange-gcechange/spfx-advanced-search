@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const english = require("./loc/en-us.js");
 const french = require("./loc/fr-fr.js");
 

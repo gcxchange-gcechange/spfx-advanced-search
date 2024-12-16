@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-this-alias */
+/* eslint-disable guard-for-in */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-for-in-array */
 import * as React from 'react';
 import styles from './AdvancedSearch.module.scss';
 import type { IAdvancedSearchProps } from './IAdvancedSearchProps';
@@ -11,12 +15,12 @@ import SearchForm from './SearchForm';
 import { Globals } from '../Globals';
 import { DefaultButton, Icon } from '@fluentui/react';
 
-var classificationCodeList: IDropdownOption[]=[];
-var classificationLevelList: IDropdownOption[]=[];
-var departmentList: IDropdownOption[]=[];
-var durationList: IDropdownOption[]=[];
-var languageRequirementList: IDropdownOption[]=[];
-var regionList: IDropdownOption[]=[];
+const classificationCodeList: IDropdownOption[] = [];
+const classificationLevelList: IDropdownOption[] = [];
+const departmentList: IDropdownOption[] = [];
+const durationList: IDropdownOption[] = [];
+const languageRequirementList: IDropdownOption[] = [];
+const regionList: IDropdownOption[] = [];
 
 export default class AdvancedSearch extends React.Component<IAdvancedSearchProps> {
   strings = Globals.getStrings();
@@ -38,11 +42,11 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
 
   public async componentDidMount(): Promise<void>
   {
-    var reacthandler=this;
+    const reacthandler = this;
     const sp:SPFI = getSP(this.props.context);
 
     sp.web.lists.getByTitle('Department').select('ID,NameEn,NameFr').items().then(function(data){
-      for(var k in data){
+      for(const k in data){
         departmentList.push({key:data[k].ID, text:data[k].NameEn});
       }
       //reacthandler.setState({departmentList});
@@ -50,7 +54,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
     });
 
     sp.web.lists.getByTitle('ClassificationCode').select('ID,NameEn,NameFr').items().then(function(data){
-      for(var k in data){
+      for(const k in data){
         classificationCodeList.push({key:data[k].ID, text:data[k].NameEn});
       }
       reacthandler.setState({classificationCodeList});
@@ -58,7 +62,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
     });
 
     sp.web.lists.getByTitle('ClassificationLevel').select('ID,NameEn,NameFr').items().then(function(data){
-      for(var k in data){
+      for(const k in data){
         classificationLevelList.push({key:data[k].ID, text:data[k].NameEn});
       }
       reacthandler.setState({classificationLevelList});
@@ -66,7 +70,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
     });
 
     sp.web.lists.getByTitle('LanguageRequirement').select('ID,NameEn,NameFr').items().then(function(data){
-      for(var k in data){
+      for(const k in data){
         languageRequirementList.push({key:data[k].ID, text:data[k].NameEn});
       }
       reacthandler.setState({languageRequirementList});
@@ -74,7 +78,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
     });
 
     sp.web.lists.getByTitle('Region').select('ID,NameEn,NameFr').items().then(function(data){
-      for(var k in data){
+      for(const k in data){
         regionList.push({key:data[k].ID, text:data[k].NameEn});
       }
       reacthandler.setState({regionList});
@@ -82,7 +86,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
     });
 
     sp.web.lists.getByTitle('Duration').select('ID,NameEn,NameFr').items().then(function(data){
-      for(var k in data){
+      for(const k in data){
         durationList.push({key:data[k].ID, text:data[k].NameEn});
       }
       reacthandler.setState({durationList});

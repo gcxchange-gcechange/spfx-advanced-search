@@ -21,6 +21,10 @@ declare interface IAdvancedSearchWebPartStrings {
   Clear: string;
   Search: string;
   AdvancedSearch: string;
+  btnExpanderOpen: string;
+  btnExpanderClosed: string;
+  btnClearAria: string;
+  btnSearchAria: string;
 }
 
 declare module 'AdvancedSearchWebPartStrings' {

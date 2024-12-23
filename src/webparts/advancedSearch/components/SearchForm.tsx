@@ -94,24 +94,30 @@ const SearchForm = (props: ISearchFormProps) => {
         <>
         <Stack>
             <Stack horizontal verticalAlign='center'>
-                <b style={titleStyle}>
-                    {strings.JobTitle}
-                </b>
+                <label id='gcx-as-job-title-label'>
+                    <b style={titleStyle}>
+                        {strings.JobTitle}
+                    </b>
+                </label>
             </Stack>
             <TextField 
                 id='txtJobTitle' 
+                aria-labelledby='gcx-as-job-title-label'
                 styles={{fieldGroup: { borderColor: borderColor }}}  
                 onChange={(e) => setJobTitle(e.currentTarget.value)} 
                 value={jobTitle} 
             /><br />
 
             <Stack horizontal verticalAlign='center'>
-                <b style={titleStyle}>
-                    {strings.Department}
-                </b>
+                <label id='gcx-as-department-label'>
+                    <b style={titleStyle}>
+                        {strings.Department}
+                    </b>
+                </label>
             </Stack>
             <Dropdown 
                 id='ddDepartment' 
+                aria-labelledby='gcx-as-department-label'
                 styles={{title: { borderColor: borderColor }}} 
                 options={props.departmentList} 
                 onChange={(e, option) => { 
@@ -126,11 +132,14 @@ const SearchForm = (props: ISearchFormProps) => {
             /><br />
 
             <Stack horizontal verticalAlign='center' tokens={stackTokens}>
-                <b style={titleStyleNoPadding}>
-                    {strings.ClassificationCode}:
-                </b>
+                <label id='gcx-as-classification-code-label'>
+                    <b style={titleStyleNoPadding}>
+                        {strings.ClassificationCode}:
+                    </b>
+                </label>
                 <Dropdown 
                     id='ddClassificationCode' 
+                    aria-labelledby='gcx-as-classification-code-label'
                     styles={{title: { borderColor: borderColor }}} 
                     options={props.classificationCodeList} 
                     onChange={(e, option) => { 
@@ -143,11 +152,14 @@ const SearchForm = (props: ISearchFormProps) => {
                     }}
                     selectedKey={classificationCodeId ? parseInt(classificationCodeId, 10) : null} 
                 />
-                <b style={titleStyleNoPadding}>
-                    {strings.Level}:
-                </b>
+                <label id='gcx-as-classification-level-label'>
+                    <b style={titleStyleNoPadding}>
+                        {strings.Level}:
+                    </b>
+                </label>
                 <Dropdown 
                     id='ddClassificationLevel' 
+                    aria-labelledby='gcx-as-classification-level-label'
                     styles={{title: { borderColor: borderColor }}} 
                     options={props.classificationLevelList} 
                     onChange={(e, option) => { 
@@ -163,12 +175,15 @@ const SearchForm = (props: ISearchFormProps) => {
             </Stack><br />
 
             <Stack horizontal verticalAlign='center'>
-            <b style={titleStyle}>
-                {strings.LanguageRequirement}
-            </b>
+                <label id='gcx-as-language-requirement-label'>
+                    <b style={titleStyle}>
+                        {strings.LanguageRequirement}
+                    </b>
+                </label>
             </Stack>
             <Dropdown 
                 id='ddLanguageRequirement' 
+                aria-labelledby='gcx-as-language-requirement-label'
                 styles={{title: { borderColor: borderColor }}} 
                 options={props.languageRequirementList} 
                 onChange={(e, option) => { 
@@ -183,12 +198,15 @@ const SearchForm = (props: ISearchFormProps) => {
             /><br />
 
             <Stack horizontal verticalAlign='center'>
-            <b style={titleStyle}>
-                {strings.Location}
-            </b>
+                <label id='gcx-as-location-label'>
+                    <b style={titleStyle}>
+                        {strings.Location}
+                    </b>
+                </label>
             </Stack>
             <Dropdown 
                 id='ddRegion' 
+                aria-labelledby='gcx-as-location-label'
                 styles={{title: { borderColor: borderColor }}} 
                 options={props.regionList} 
                 onChange={(e, option) => { 
@@ -203,12 +221,15 @@ const SearchForm = (props: ISearchFormProps) => {
             /><br />
 
             <Stack horizontal verticalAlign='center'>
-            <b style={titleStyle}>
-                {strings.Duration}
-            </b>
+                <label id='gcx-as-duration-label'>
+                    <b style={titleStyle}>
+                        {strings.Duration}
+                    </b>
+                </label>
             </Stack>
             <Dropdown 
                 id='ddDuration' 
+                aria-labelledby='gcx-as-duration-label'
                 styles={{title: { borderColor: borderColor }}} 
                 options={props.durationList} 
                 onChange={(e, option) => { 
@@ -223,13 +244,20 @@ const SearchForm = (props: ISearchFormProps) => {
             /><br />
 
             <Stack horizontal verticalAlign='center' horizontalAlign="end" tokens={stackTokens}>
-                <DefaultButton id='advancedSearch-Clear'
+                <DefaultButton 
+                    id='advancedSearch-Clear'
+                    aria-label={strings.btnClearAria}
                     onClick={() => {
                         ClearValues();
-                    }}>
+                    }}
+                >
                     {strings.Clear}
                 </DefaultButton>
-                <PrimaryButton id='advancedSearch-Search'>
+
+                <PrimaryButton 
+                    id='advancedSearch-Search'
+                    aria-label={strings.btnSearchAria}
+                >
                     {strings.Search}
                 </PrimaryButton>
             </Stack>

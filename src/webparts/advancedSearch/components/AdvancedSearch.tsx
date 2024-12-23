@@ -108,10 +108,16 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
             {this.strings.AdvancedSearch} :
           </div>
           <div style={{float: 'right'}}>
-            <DefaultButton style={this.buttonStyle} onClick={() => {
-              Globals.setOpen(!open);
-              this.forceUpdate();
-            }}>
+            <DefaultButton 
+              style={this.buttonStyle} 
+              role='button'
+              aria-label={open ? this.strings.btnExpanderOpen : this.strings.btnExpanderClosed}
+              aria-expanded={open}
+              onClick={() => {
+                Globals.setOpen(!open);
+                this.forceUpdate();
+              }}
+            >
               <Icon iconName={open ? 'ChevronUp' : 'ChevronDown'} />
             </DefaultButton>
           </div>

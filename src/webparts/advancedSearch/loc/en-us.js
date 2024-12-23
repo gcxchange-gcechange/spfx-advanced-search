@@ -21,6 +21,10 @@ define([], function() {
     "Duration": "Duration",
     "Clear": "Clear",
     "Search": "Search",
-    "AdvancedSearch": "Advanced Search"
+    "AdvancedSearch": "Advanced Search",
+    "btnExpanderOpen": "Click to close Advanced Search",
+    "btnExpanderClosed": "Click to open Advanced Search",
+    "btnClearAria": "Click to clear all your Advanced Search selection options.",
+    "btnSearchAria": "Click to begin your advanced search for job opportunities."
   }
 });

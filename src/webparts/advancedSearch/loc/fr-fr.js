@@ -21,6 +21,10 @@ define([], function() {
       "Duration": "Durée",
       "Clear": "Effacer",
       "Search": "Recherche",
-      "AdvancedSearch": "Recherche avancée"
+      "AdvancedSearch": "Recherche avancée",
+      "btnExpanderOpen": "Cliquez pour fermer la recherche avancée",
+      "btnExpanderClosed": "Cliquez pour ouvrir la recherche avancée",
+      "btnClearAria": "Cliquez pour effacer toutes vos options de sélection de recherche avancée.",
+      "btnSearchAria": "Cliquez pour commencer votre recherche avancée d'opportunités d'emploi."
     }
   });

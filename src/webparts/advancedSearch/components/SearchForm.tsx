@@ -14,43 +14,43 @@ export interface ISearchFormProps {
 
 export enum AdvancedSearchSessionKeys {
     JobTitle = 'gcx-cm-jobTitle',
-    ClassificationCodeId = 'gcx-cm-classificationCodeId',
-    ClassificationLevelId = 'gcx-cm-classificationLevelId',
-    DepartmentId = 'gcx-cm-departmentId',
-    DurationId = 'gcx-cm-durationId',
-    LanguageRequirementId = 'gcx-cm-languageRequirementId',
-    RegionId = 'gcx-cm-regionId',
+    ClassificationCode = 'gcx-cm-classificationCode',
+    ClassificationLevel = 'gcx-cm-classificationLevel',
+    Department = 'gcx-cm-department',
+    Duration = 'gcx-cm-duration',
+    LanguageRequirement = 'gcx-cm-languageRequirement',
+    Location = 'gcx-cm-location',
 }
 
 const SearchForm = (props: ISearchFormProps) => {
     const strings = Globals.getStrings();
 
     const [jobTitle, setJobTitle] = React.useState('');
-    const [classificationCodeId, setClassificationCodeId] = React.useState('');
-    const [classificationLevelId, setClassificationLevelId] = React.useState('');
-    const [departmentId, setDepartmentId] = React.useState('');
-    const [durationId, setDurationId] = React.useState('');
-    const [languageRequirementId, setLanguageRequirementId] = React.useState('');
-    const [regionId, setRegionId] = React.useState('');
+    const [classificationCode, setClassificationCodeId] = React.useState('');
+    const [classificationLevel, setClassificationLevelId] = React.useState('');
+    const [department, setDepartmentId] = React.useState('');
+    const [duration, setDurationId] = React.useState('');
+    const [languageRequirement, setLanguageRequirementId] = React.useState('');
+    const [location, setRegionId] = React.useState('');
 
     const SetSessionKeys = (): void => {
         sessionStorage.setItem(AdvancedSearchSessionKeys.JobTitle, jobTitle);
-        sessionStorage.setItem(AdvancedSearchSessionKeys.ClassificationCodeId, classificationCodeId);
-        sessionStorage.setItem(AdvancedSearchSessionKeys.ClassificationLevelId, classificationLevelId);
-        sessionStorage.setItem(AdvancedSearchSessionKeys.DepartmentId, departmentId);
-        sessionStorage.setItem(AdvancedSearchSessionKeys.DurationId, durationId);
-        sessionStorage.setItem(AdvancedSearchSessionKeys.LanguageRequirementId, languageRequirementId);
-        sessionStorage.setItem(AdvancedSearchSessionKeys.RegionId, regionId);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.ClassificationCode, classificationCode);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.ClassificationLevel, classificationLevel);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.Department, department);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.Duration, duration);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.LanguageRequirement, languageRequirement);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.Location, location);
     }
 
     const ClearSessionKeys = (): void => {
         sessionStorage.removeItem(AdvancedSearchSessionKeys.JobTitle);
-        sessionStorage.removeItem(AdvancedSearchSessionKeys.ClassificationCodeId);
-        sessionStorage.removeItem(AdvancedSearchSessionKeys.ClassificationLevelId);
-        sessionStorage.removeItem(AdvancedSearchSessionKeys.DepartmentId);
-        sessionStorage.removeItem(AdvancedSearchSessionKeys.DurationId);
-        sessionStorage.removeItem(AdvancedSearchSessionKeys.LanguageRequirementId);
-        sessionStorage.removeItem(AdvancedSearchSessionKeys.RegionId);
+        sessionStorage.removeItem(AdvancedSearchSessionKeys.ClassificationCode);
+        sessionStorage.removeItem(AdvancedSearchSessionKeys.ClassificationLevel);
+        sessionStorage.removeItem(AdvancedSearchSessionKeys.Department);
+        sessionStorage.removeItem(AdvancedSearchSessionKeys.Duration);
+        sessionStorage.removeItem(AdvancedSearchSessionKeys.LanguageRequirement);
+        sessionStorage.removeItem(AdvancedSearchSessionKeys.Location);
     }
 
     const ClearValues = (): void => {
@@ -68,7 +68,7 @@ const SearchForm = (props: ISearchFormProps) => {
 
     React.useEffect(() => {
         SetSessionKeys();
-    }, [jobTitle, classificationCodeId, classificationLevelId, departmentId, durationId, languageRequirementId, regionId]);
+    }, [jobTitle, classificationCode, classificationLevel, department, duration, languageRequirement, location]);
 
     const titleStyle = {
         fontWeight: '500', 
@@ -128,7 +128,7 @@ const SearchForm = (props: ISearchFormProps) => {
                         setDepartmentId('')
                     }
                 }}
-                selectedKey={departmentId ? parseInt(departmentId, 10) : null} 
+                selectedKey={department ? parseInt(department, 10) : null} 
             /><br />
 
             <Stack horizontal verticalAlign='center' tokens={stackTokens}>
@@ -150,7 +150,7 @@ const SearchForm = (props: ISearchFormProps) => {
                             setClassificationCodeId('')
                         }
                     }}
-                    selectedKey={classificationCodeId ? parseInt(classificationCodeId, 10) : null} 
+                    selectedKey={classificationCode ? parseInt(classificationCode, 10) : null} 
                 />
                 <label id='gcx-as-classification-level-label'>
                     <b style={titleStyleNoPadding}>
@@ -170,7 +170,7 @@ const SearchForm = (props: ISearchFormProps) => {
                             setClassificationLevelId('')
                         }
                     }}
-                    selectedKey={classificationLevelId ? parseInt(classificationLevelId, 10) : null} 
+                    selectedKey={classificationLevel ? parseInt(classificationLevel, 10) : null} 
                 />
             </Stack><br />
 
@@ -194,7 +194,7 @@ const SearchForm = (props: ISearchFormProps) => {
                         setLanguageRequirementId('')
                     }
                 }}
-                selectedKey={languageRequirementId ? parseInt(languageRequirementId, 10) : null} 
+                selectedKey={languageRequirement ? parseInt(languageRequirement, 10) : null} 
             /><br />
 
             <Stack horizontal verticalAlign='center'>
@@ -217,7 +217,7 @@ const SearchForm = (props: ISearchFormProps) => {
                         setRegionId('')
                     }
                 }} 
-                selectedKey={regionId ? parseInt(regionId, 10) : null} 
+                selectedKey={location ? parseInt(location, 10) : null} 
             /><br />
 
             <Stack horizontal verticalAlign='center'>
@@ -240,7 +240,7 @@ const SearchForm = (props: ISearchFormProps) => {
                         setDurationId('')
                     }
                 }} 
-                selectedKey={durationId ? parseInt(durationId, 10) : null} 
+                selectedKey={duration ? parseInt(duration, 10) : null} 
             /><br />
 
             <Stack horizontal verticalAlign='center' horizontalAlign="end" tokens={stackTokens}>

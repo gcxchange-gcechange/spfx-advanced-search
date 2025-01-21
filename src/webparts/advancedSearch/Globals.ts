@@ -10,6 +10,7 @@ export enum Language {
 export class Globals {
     private static _language: string;
     private static _isOpen: boolean = false;
+    private static _debugMode: boolean = false;
 
     public static isOpen(): boolean {
         return this._isOpen;
@@ -45,5 +46,13 @@ export class Globals {
             default:
                 return english;
         }
+    }
+
+    public static isDebugMode(): boolean {
+        return this._debugMode;
+    }
+
+    public static setDebugMode(state: boolean): void {
+        this._debugMode = state;
     }
 }

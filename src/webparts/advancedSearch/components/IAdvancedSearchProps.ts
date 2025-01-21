@@ -8,6 +8,7 @@ export interface IAdvancedSearchProps {
   userDisplayName: string;
   context: WebPartContext;
   selectedKey?: string[];
+  debug: boolean;
   //decisionChoiceCallback?:(option: string) => void;
   //searchText: string;
 }

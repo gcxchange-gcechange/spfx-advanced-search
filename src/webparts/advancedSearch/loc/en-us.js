@@ -3,6 +3,7 @@ define([], function() {
     "PropertyPaneDescription": "Description",
     "BasicGroupName": "Group Name",
     "LanguageFieldLabel": "Language",
+    "DebugFieldLabel": "Debug Mode",
     "AppLocalEnvironmentSharePoint": "The app is running on your local environment as SharePoint web part",
     "AppLocalEnvironmentTeams": "The app is running on your local environment as Microsoft Teams app",
     "AppLocalEnvironmentOffice": "The app is running on your local environment in office.com",
@@ -17,7 +18,8 @@ define([], function() {
     "ClassificationCode": "Classification Code",
     "Level": "Level",
     "LanguageRequirement": "Language Requirement",
-    "Location": "Location",
+    "LanguageComprehension": "Language Comprehension",
+    "Location": "City",
     "Duration": "Duration",
     "Clear": "Clear",
     "Search": "Search",
@@ -25,6 +27,16 @@ define([], function() {
     "btnExpanderOpen": "Click to close Advanced Search",
     "btnExpanderClosed": "Click to open Advanced Search",
     "btnClearAria": "Click to clear all your Advanced Search selection options.",
-    "btnSearchAria": "Click to begin your advanced search for job opportunities."
+    "btnSearchAria": "Click to begin your advanced search for job opportunities.",
+    "operatorLessThan": "Less or equal to",
+    "operatorGreaterThan": "Greater or equal to",
+    "operatorExactly": "Exactly",
+    "durationAmount" : "Amount",
+    "durationUnit": "Unit",
+    "English": "English",
+    "French": "French",
+    "Reading": "Reading comprehension",
+    "Written": "Written expression",
+    "Oral": "Oral expression"
   }
 });

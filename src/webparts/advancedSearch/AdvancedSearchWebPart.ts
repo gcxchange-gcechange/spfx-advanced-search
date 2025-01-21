@@ -3,7 +3,8 @@ import * as ReactDom from 'react-dom';
 import { Version } from '@microsoft/sp-core-library';
 import {
   type IPropertyPaneConfiguration,
-  PropertyPaneTextField
+  PropertyPaneTextField,
+  PropertyPaneToggle
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
@@ -15,6 +16,7 @@ import { Globals, Language } from './Globals';
 
 export interface IAdvancedSearchWebPartProps {
   language: string;
+  debug: boolean;
 }
 
 export default class AdvancedSearchWebPart extends BaseClientSideWebPart<IAdvancedSearchWebPartProps> {
@@ -32,7 +34,8 @@ export default class AdvancedSearchWebPart extends BaseClientSideWebPart<IAdvanc
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
         userDisplayName: this.context.pageContext.user.displayName,
         context: this.context,
-        selectedKey: ['50']
+        selectedKey: ['50'],
+        debug: this.properties.debug
       }
     );
 
@@ -41,6 +44,7 @@ export default class AdvancedSearchWebPart extends BaseClientSideWebPart<IAdvanc
 
   protected onInit(): Promise<void> {
     Globals.setLanguage(this.properties.language);
+    Globals.setDebugMode(this.properties.debug);
 
     return this._getEnvironmentMessage().then(message => {
       this._environmentMessage = message;
@@ -117,6 +121,10 @@ export default class AdvancedSearchWebPart extends BaseClientSideWebPart<IAdvanc
                   label: strings.LanguageFieldLabel,
                   value: Globals.getLanguage(),
                   placeholder: `${Language.English} or ${Language.French}`
+                }),
+                PropertyPaneToggle('debug', {
+                  label: strings.DebugFieldLabel,
+                  checked: Globals.isDebugMode()
                 })
               ]
             }
@@ -130,6 +138,9 @@ export default class AdvancedSearchWebPart extends BaseClientSideWebPart<IAdvanc
     switch(propertyPath) {
       case 'language':
         Globals.setLanguage(newValue);
+        break;
+      case 'debug':
+        Globals.setDebugMode(newValue)
         break;
     }
   }

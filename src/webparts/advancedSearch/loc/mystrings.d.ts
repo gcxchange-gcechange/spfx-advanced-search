@@ -2,6 +2,7 @@ declare interface IAdvancedSearchWebPartStrings {
   PropertyPaneDescription: string;
   BasicGroupName: string;
   LanguageFieldLabel: string;
+  DebugFieldLabel: string;
   AppLocalEnvironmentSharePoint: string;
   AppLocalEnvironmentTeams: string;
   AppLocalEnvironmentOffice: string;
@@ -16,6 +17,7 @@ declare interface IAdvancedSearchWebPartStrings {
   ClassificationCode: string;
   Level: string;
   LanguageRequirement: string;
+  LanguageComprehension: string;
   Location: string;
   Duration: string
   Clear: string;
@@ -25,6 +27,16 @@ declare interface IAdvancedSearchWebPartStrings {
   btnExpanderClosed: string;
   btnClearAria: string;
   btnSearchAria: string;
+  operatorLessThan: string;
+  operatorGreaterThan: string;
+  operatorExactly: string;
+  durationAmount: string;
+  durationUnit: string;
+  English: string;
+  French: string;
+  Reading: string;
+  Written: string;
+  Oral: string;
 }
 
 declare module 'AdvancedSearchWebPartStrings' {

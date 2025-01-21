@@ -3,6 +3,7 @@ define([], function() {
       "PropertyPaneDescription": "Description",
       "BasicGroupName": "Group Name",
       "LanguageFieldLabel": "Langue",
+      "DebugFieldLabel": "Mode débogage",
       "AppLocalEnvironmentSharePoint": "The app is running on your local environment as SharePoint web part",
       "AppLocalEnvironmentTeams": "The app is running on your local environment as Microsoft Teams app",
       "AppLocalEnvironmentOffice": "The app is running on your local environment in office.com",
@@ -17,7 +18,8 @@ define([], function() {
       "ClassificationCode": "Code de classement",
       "Level": "Niveau",
       "LanguageRequirement": "Exigence linguistique",
-      "Location": "Emplacement",
+      "LanguageComprehension": "Compréhension du langage",
+      "Location": "Ville",
       "Duration": "Durée",
       "Clear": "Effacer",
       "Search": "Recherche",
@@ -25,6 +27,16 @@ define([], function() {
       "btnExpanderOpen": "Cliquez pour fermer la recherche avancée",
       "btnExpanderClosed": "Cliquez pour ouvrir la recherche avancée",
       "btnClearAria": "Cliquez pour effacer toutes vos options de sélection de recherche avancée.",
-      "btnSearchAria": "Cliquez pour commencer votre recherche avancée d'opportunités d'emploi."
+      "btnSearchAria": "Cliquez pour commencer votre recherche avancée d'opportunités d'emploi.",
+      "operatorLessThan": "Inférieur ou égal à",
+      "operatorGreaterThan": "Supérieur ou égal à",
+      "operatorExactly": "Exactement",
+      "durationAmount" : "Quantité",
+      "durationUnit": "Unité",
+      "English": "Anglaise",
+      "French": "Français",
+      "Reading": "Compréhension écrite",
+      "Written": "Expression écrite",
+      "Oral": "Expression orale"
     }
   });

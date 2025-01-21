@@ -12,15 +12,23 @@ import "@pnp/sp/items";
 import { SPFI } from '@pnp/sp';
 import { getSP } from '../../../pnpjsConfig';
 import SearchForm from './SearchForm';
-import { Globals } from '../Globals';
+import { Globals, Language } from '../Globals';
 import { DefaultButton, Icon } from '@fluentui/react';
+import { Buffer } from 'buffer';
 
 const classificationCodeList: IDropdownOption[] = [];
 const classificationLevelList: IDropdownOption[] = [];
 const departmentList: IDropdownOption[] = [];
 const durationList: IDropdownOption[] = [];
+const durationOperatorList: IDropdownOption[] = [];
 const languageRequirementList: IDropdownOption[] = [];
-const regionList: IDropdownOption[] = [];
+const languageComprehensionList: IDropdownOption[] = [
+  { key: 0, text: 'A' },
+  { key: 1, text: 'B' },
+  { key: 2, text: 'C' },
+];
+const cityList: IDropdownOption[] = [];
+
 
 export default class AdvancedSearch extends React.Component<IAdvancedSearchProps> {
   strings = Globals.getStrings();
@@ -44,54 +52,67 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
   {
     const reacthandler = this;
     const sp:SPFI = getSP(this.props.context);
+    const strings = Globals.getStrings();
+    const lang = Globals.getLanguage();
 
-    sp.web.lists.getByTitle('Department').select('ID,NameEn,NameFr').items().then(function(data){
+    sp.web.lists.getByTitle('Department').select('ID,NameEn,NameFr').items().then((data) => {
       for(const k in data){
-        departmentList.push({key:data[k].ID, text:data[k].NameEn});
+        departmentList.push({key:data[k].ID, text: lang === Language.French ? this.fixEncoding(data[k].NameFr) : data[k].NameEn});
       }
-      //reacthandler.setState({departmentList});
+
+      departmentList.sort((a, b) => a.text.localeCompare(b.text));
+
+      reacthandler.setState({departmentList});
       return departmentList;
     });
 
-    sp.web.lists.getByTitle('ClassificationCode').select('ID,NameEn,NameFr').items().then(function(data){
+    sp.web.lists.getByTitle('ClassificationCode').select('ID,NameEn,NameFr').items().then((data) => {
       for(const k in data){
-        classificationCodeList.push({key:data[k].ID, text:data[k].NameEn});
+        classificationCodeList.push({key:data[k].ID, text: lang === Language.French ? data[k].NameFr : data[k].NameEn});
       }
       reacthandler.setState({classificationCodeList});
       return classificationCodeList;
     });
 
-    sp.web.lists.getByTitle('ClassificationLevel').select('ID,NameEn,NameFr').items().then(function(data){
+    sp.web.lists.getByTitle('ClassificationLevel').select('ID,NameEn,NameFr').items().then((data) => {
       for(const k in data){
-        classificationLevelList.push({key:data[k].ID, text:data[k].NameEn});
+        classificationLevelList.push({key:data[k].ID, text: lang === Language.French ? data[k].NameFr : data[k].NameEn});
       }
       reacthandler.setState({classificationLevelList});
       return classificationLevelList;
     });
 
-    sp.web.lists.getByTitle('LanguageRequirement').select('ID,NameEn,NameFr').items().then(function(data){
+    sp.web.lists.getByTitle('LanguageRequirement').select('ID,NameEn,NameFr').items().then((data) => {
       for(const k in data){
-        languageRequirementList.push({key:data[k].ID, text:data[k].NameEn});
+        languageRequirementList.push({key:data[k].ID, text: lang === Language.French ? data[k].NameFr : data[k].NameEn});
       }
       reacthandler.setState({languageRequirementList});
       return languageRequirementList;
     });
 
-    sp.web.lists.getByTitle('Region').select('ID,NameEn,NameFr').items().then(function(data){
+    sp.web.lists.getByTitle('City').select('ID,NameEn,NameFr').items().then((data) => {
       for(const k in data){
-        regionList.push({key:data[k].ID, text:data[k].NameEn});
+        cityList.push({key:data[k].ID, text: lang === Language.French ? data[k].NameFr : data[k].NameEn});
       }
-      reacthandler.setState({regionList});
-      return regionList;
+
+      cityList.sort((a, b) => a.text.localeCompare(b.text));
+
+      reacthandler.setState({cityList});
+      return cityList;
     });
 
-    sp.web.lists.getByTitle('Duration').select('ID,NameEn,NameFr').items().then(function(data){
+    sp.web.lists.getByTitle('Duration').select('ID,NameEn,NameFr').items().then((data) => {
       for(const k in data){
-        durationList.push({key:data[k].ID, text:data[k].NameEn});
+        durationList.push({key:data[k].ID, text: lang === Language.French ? data[k].NameFr : data[k].NameEn});
       }
       reacthandler.setState({durationList});
       return durationList;
     });
+
+    durationOperatorList.push({ key: 0, text: strings.operatorExactly});
+    durationOperatorList.push({ key: 1, text: strings.operatorGreaterThan});
+    durationOperatorList.push({ key: 2, text: strings.operatorLessThan});
+    reacthandler.setState({durationOperatorList});
   }  
 
   public render(): React.ReactElement<IAdvancedSearchProps> {
@@ -124,9 +145,23 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
         </div>
         
         <div style={{display: open ? 'block' : 'none'}}>
-          <SearchForm departmentList={departmentList} classificationCodeList={classificationCodeList} classificationLevelList={classificationLevelList} durationList={durationList} languageRequirementList={languageRequirementList} regionList={regionList} />
+          <SearchForm 
+            departmentList={departmentList} 
+            classificationCodeList={classificationCodeList} 
+            classificationLevelList={classificationLevelList} 
+            durationList={durationList} 
+            durationOperatorsList={durationOperatorList} 
+            languageRequirementList={languageRequirementList} 
+            languageComprehensionList={languageComprehensionList}
+            cityList={cityList} 
+          />
         </div>
     </section>
     );
+  }
+
+  private fixEncoding(input: string): string {
+    const buffer = Buffer.from(input, 'binary');
+    return buffer.toString('utf8');
   }
 }

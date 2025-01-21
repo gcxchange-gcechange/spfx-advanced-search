@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Stack, TextField, PrimaryButton, DefaultButton, IStackTokens, Dropdown, IDropdownOption  } from "@fluentui/react";
+import { Stack, TextField, PrimaryButton, DefaultButton, IStackTokens, Dropdown, IDropdownOption, IStackStyles  } from "@fluentui/react";
 import * as React from "react";
 import { Globals } from "../Globals";
 
@@ -8,8 +8,10 @@ export interface ISearchFormProps {
     classificationLevelList: any;
     departmentList: any;
     durationList: any;
+    durationOperatorsList: any;
     languageRequirementList: any;
-    regionList: any;
+    languageComprehensionList: any;
+    cityList: any;
 }
 
 export enum AdvancedSearchSessionKeys {
@@ -18,20 +20,26 @@ export enum AdvancedSearchSessionKeys {
     ClassificationLevel = 'gcx-cm-classificationLevel',
     Department = 'gcx-cm-department',
     Duration = 'gcx-cm-duration',
+    DurationQuantity = 'gcx-cm-durationQuantity',
+    DurationOperator = 'gcx-cm-durationOperator',
     LanguageRequirement = 'gcx-cm-languageRequirement',
-    Location = 'gcx-cm-location',
+    LanguageComprehension = 'gcx-cm-languageComprehension',
+    City = 'gcx-cm-city',
 }
 
 const SearchForm = (props: ISearchFormProps) => {
     const strings = Globals.getStrings();
 
     const [jobTitle, setJobTitle] = React.useState('');
-    const [classificationCode, setClassificationCodeId] = React.useState('');
-    const [classificationLevel, setClassificationLevelId] = React.useState('');
-    const [department, setDepartmentId] = React.useState('');
-    const [duration, setDurationId] = React.useState('');
-    const [languageRequirement, setLanguageRequirementId] = React.useState('');
-    const [location, setRegionId] = React.useState('');
+    const [classificationCode, setClassificationCode] = React.useState('');
+    const [classificationLevel, setClassificationLevel] = React.useState('');
+    const [department, setDepartment] = React.useState('');
+    const [duration, setDuration] = React.useState('');
+    const [durationQuantity, setDurationQuantity] = React.useState('');
+    const [durationOperator, setDurationOperator] = React.useState('1');
+    const [languageRequirement, setLanguageRequirement] = React.useState('');
+    const [languageComprehension, setLanguageComprehension] = React.useState('CCC-CCC');
+    const [city, setCity] = React.useState('');
 
     const SetSessionKeys = (): void => {
         sessionStorage.setItem(AdvancedSearchSessionKeys.JobTitle, jobTitle);
@@ -39,8 +47,25 @@ const SearchForm = (props: ISearchFormProps) => {
         sessionStorage.setItem(AdvancedSearchSessionKeys.ClassificationLevel, classificationLevel);
         sessionStorage.setItem(AdvancedSearchSessionKeys.Department, department);
         sessionStorage.setItem(AdvancedSearchSessionKeys.Duration, duration);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.DurationQuantity, durationQuantity);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.DurationOperator, durationOperator);
         sessionStorage.setItem(AdvancedSearchSessionKeys.LanguageRequirement, languageRequirement);
-        sessionStorage.setItem(AdvancedSearchSessionKeys.Location, location);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.LanguageComprehension, languageComprehension);
+        sessionStorage.setItem(AdvancedSearchSessionKeys.City, city);
+
+        if (Globals.isDebugMode()) {
+            console.log('\njobTitle: ' + jobTitle);
+            console.log('classificationCode: ' + classificationCode);
+            console.log('classificationLevel: ' + classificationLevel);
+            console.log('department: ' + department);
+            console.log('duration: ' + duration);
+            console.log('durationQuantity: ' + durationQuantity);
+            console.log('durationOperator: ' + durationOperator);
+            console.log('languageRequirement: ' + languageRequirement);
+            console.log('languageComprehension: ' + languageComprehension);
+            console.log('city: ' + city +'\n');
+        }
+        
     }
 
     const ClearSessionKeys = (): void => {
@@ -49,26 +74,40 @@ const SearchForm = (props: ISearchFormProps) => {
         sessionStorage.removeItem(AdvancedSearchSessionKeys.ClassificationLevel);
         sessionStorage.removeItem(AdvancedSearchSessionKeys.Department);
         sessionStorage.removeItem(AdvancedSearchSessionKeys.Duration);
+        sessionStorage.removeItem(AdvancedSearchSessionKeys.DurationQuantity);
+        sessionStorage.removeItem(AdvancedSearchSessionKeys.DurationOperator);
         sessionStorage.removeItem(AdvancedSearchSessionKeys.LanguageRequirement);
-        sessionStorage.removeItem(AdvancedSearchSessionKeys.Location);
+        sessionStorage.removeItem(AdvancedSearchSessionKeys.LanguageComprehension);
+        sessionStorage.removeItem(AdvancedSearchSessionKeys.City);
     }
 
     const ClearValues = (): void => {
         setJobTitle('');
-        setDepartmentId('');
-        setClassificationCodeId('');
-        setClassificationLevelId('');
-        setLanguageRequirementId('');
-        setLanguageRequirementId('');
-        setRegionId('');
-        setDurationId('');
+        setClassificationCode('');
+        setClassificationLevel('');
+        setDepartment('');
+        setDuration('');
+        setDurationQuantity('');
+        setDurationOperator('1');
+        setLanguageRequirement('');
+        setLanguageComprehension('');
+        setCity('');
 
         ClearSessionKeys();
     };
 
     React.useEffect(() => {
         SetSessionKeys();
-    }, [jobTitle, classificationCode, classificationLevel, department, duration, languageRequirement, location]);
+    }, [jobTitle, classificationCode, classificationLevel, department, duration, durationQuantity, durationOperator, languageRequirement, languageComprehension, city]);
+
+    const updateLanguageComprehension = (index: number, value: string): void => {
+        if (index >= 0 && index <= languageComprehension.length) {
+            setLanguageComprehension(languageComprehension.slice(0, index) + value + languageComprehension.slice(index + 1));
+        } else {
+            if (Globals.isDebugMode())
+                console.error('Index out of bounds for language comprehension.')
+        }
+    };
 
     const titleStyle = {
         fontWeight: '500', 
@@ -83,6 +122,19 @@ const SearchForm = (props: ISearchFormProps) => {
 
     const borderColor: string = '#c2c2c2';
     const stackTokens: IStackTokens = { childrenGap: 20 };
+    const stackTokensDuration: IStackTokens = { childrenGap: 15 };
+    const stackStyles: IStackStyles = {
+        root: {
+            width: '100%'
+        },
+    };
+    const compStackStyle= {
+        root: {
+            width: '100%',
+            padding: '10px 15px',
+            gap: '15px'
+        }
+    }
 
     if (Globals.isOpen()){
         SetSessionKeys();
@@ -122,10 +174,10 @@ const SearchForm = (props: ISearchFormProps) => {
                 options={props.departmentList} 
                 onChange={(e, option) => { 
                     if (option) {
-                        setDepartmentId(option.key.toString());
+                        setDepartment(option.key.toString());
                     }
                     else {
-                        setDepartmentId('')
+                        setDepartment('');
                     }
                 }}
                 selectedKey={department ? parseInt(department, 10) : null} 
@@ -144,10 +196,10 @@ const SearchForm = (props: ISearchFormProps) => {
                     options={props.classificationCodeList} 
                     onChange={(e, option) => { 
                         if (option) {
-                            setClassificationCodeId(option.key.toString());
+                            setClassificationCode(option.key.toString());
                         }
                         else {
-                            setClassificationCodeId('')
+                            setClassificationCode('');
                         }
                     }}
                     selectedKey={classificationCode ? parseInt(classificationCode, 10) : null} 
@@ -164,10 +216,10 @@ const SearchForm = (props: ISearchFormProps) => {
                     options={props.classificationLevelList} 
                     onChange={(e, option) => { 
                         if (option) {
-                            setClassificationLevelId(option.key.toString());
+                            setClassificationLevel(option.key.toString());
                         }
                         else {
-                            setClassificationLevelId('')
+                            setClassificationLevel('');
                         }
                     }}
                     selectedKey={classificationLevel ? parseInt(classificationLevel, 10) : null} 
@@ -188,15 +240,206 @@ const SearchForm = (props: ISearchFormProps) => {
                 options={props.languageRequirementList} 
                 onChange={(e, option) => { 
                     if (option) {
-                        setLanguageRequirementId(option.key.toString());
+                        setLanguageRequirement(option.key.toString());
+                        if (languageRequirement !== '3')
+                            setLanguageComprehension('CCC-CCC');
                     }
                     else {
-                        setLanguageRequirementId('')
+                        setLanguageRequirement('');
                     }
                 }}
                 selectedKey={languageRequirement ? parseInt(languageRequirement, 10) : null} 
             /><br />
 
+            { languageRequirement === '3' ? (
+                <div>
+
+                    <label>
+                        <b style={titleStyle}>
+                            {strings.Reading}
+                        </b>
+                    </label>
+                    <Stack horizontal verticalAlign='center' styles={compStackStyle}>
+                        
+                        <Stack verticalAlign='center' styles={stackStyles}>
+                            <label id='gcx-as-language-comprehension-label'>
+                                <b style={titleStyle}>
+                                    {strings.English}
+                                </b>
+                            </label>
+                            <Dropdown 
+                                //aria-labelledby='gcx-as-language-comprehension-en-reading-label'
+                                styles={{title: { borderColor: borderColor }}} 
+                                options={props.languageComprehensionList} 
+                                onChange={(e, option) => { 
+                                    if (option) {
+                                        updateLanguageComprehension(0, option.text);
+                                    }
+                                    else {
+                                        updateLanguageComprehension(0, 'C');
+                                    }
+                                }} 
+                                selectedKey={
+                                    languageComprehension
+                                    ? props.languageComprehensionList.find(
+                                        (item: any) => item.text === languageComprehension[0] 
+                                    )?.key : null
+                                } 
+                            />
+                        </Stack>
+                        <Stack verticalAlign='center' styles={stackStyles}>
+                            <label id='gcx-as-language-comprehension-label'>
+                                <b style={titleStyle}>
+                                    {strings.French}
+                                </b>
+                            </label>
+                            <Dropdown 
+                                //aria-labelledby='gcx-as-language-comprehension-en-reading-label'
+                                styles={{title: { borderColor: borderColor }}} 
+                                options={props.languageComprehensionList} 
+                                onChange={(e, option) => { 
+                                    if (option) {
+                                        updateLanguageComprehension(4, option.text);
+                                    }
+                                    else {
+                                        updateLanguageComprehension(4, 'C');
+                                    }
+                                }} 
+                                selectedKey={
+                                    languageComprehension
+                                    ? props.languageComprehensionList.find(
+                                        (item: any) => item.text === languageComprehension[4] 
+                                    )?.key : null
+                                } 
+                            />
+                        </Stack>
+                    </Stack>
+
+                    <label>
+                        <b style={titleStyle}>
+                            {strings.Written}
+                        </b>
+                    </label>
+                    <Stack horizontal verticalAlign='center' styles={compStackStyle}>
+                        
+                        <Stack verticalAlign='center' styles={stackStyles}>
+                            <label id='gcx-as-language-comprehension-label'>
+                                <b style={titleStyle}>
+                                    {strings.English}
+                                </b>
+                            </label>
+                            <Dropdown 
+                                //aria-labelledby='gcx-as-language-comprehension-en-reading-label'
+                                styles={{title: { borderColor: borderColor }}} 
+                                options={props.languageComprehensionList} 
+                                onChange={(e, option) => { 
+                                    if (option) {
+                                        updateLanguageComprehension(1, option.text);
+                                    }
+                                    else {
+                                        updateLanguageComprehension(1, 'C');
+                                    }
+                                }} 
+                                selectedKey={
+                                    languageComprehension
+                                    ? props.languageComprehensionList.find(
+                                        (item: any) => item.text === languageComprehension[1] 
+                                    )?.key : null
+                                } 
+                            />
+                        </Stack>
+                        <Stack verticalAlign='center' styles={stackStyles}>
+                            <label id='gcx-as-language-comprehension-label'>
+                                <b style={titleStyle}>
+                                    {strings.French}
+                                </b>
+                            </label>
+                            <Dropdown 
+                                //aria-labelledby='gcx-as-language-comprehension-en-reading-label'
+                                styles={{title: { borderColor: borderColor }}} 
+                                options={props.languageComprehensionList} 
+                                onChange={(e, option) => { 
+                                    if (option) {
+                                        updateLanguageComprehension(5, option.text);
+                                    }
+                                    else {
+                                        updateLanguageComprehension(5, 'C');
+                                    }
+                                }} 
+                                selectedKey={
+                                    languageComprehension
+                                    ? props.languageComprehensionList.find(
+                                        (item: any) => item.text === languageComprehension[5] 
+                                    )?.key : null
+                                } 
+                            />
+                        </Stack>
+                    </Stack>
+
+                    <label>
+                        <b style={titleStyle}>
+                            {strings.Oral}
+                        </b>
+                    </label>
+                    <Stack horizontal verticalAlign='center' styles={compStackStyle}>
+                        
+                        <Stack verticalAlign='center' styles={stackStyles}>
+                            <label id='gcx-as-language-comprehension-label'>
+                                <b style={titleStyle}>
+                                    {strings.English}
+                                </b>
+                            </label>
+                            <Dropdown 
+                                //aria-labelledby='gcx-as-language-comprehension-en-reading-label'
+                                styles={{title: { borderColor: borderColor }}} 
+                                options={props.languageComprehensionList} 
+                                onChange={(e, option) => { 
+                                    if (option) {
+                                        updateLanguageComprehension(2, option.text);
+                                    }
+                                    else {
+                                        updateLanguageComprehension(2, 'C');
+                                    }
+                                }} 
+                                selectedKey={
+                                    languageComprehension
+                                    ? props.languageComprehensionList.find(
+                                        (item: any) => item.text === languageComprehension[2] 
+                                    )?.key : null
+                                } 
+                            />
+                        </Stack>
+                        <Stack verticalAlign='center' styles={stackStyles}>
+                            <label id='gcx-as-language-comprehension-label'>
+                                <b style={titleStyle}>
+                                    {strings.French}
+                                </b>
+                            </label>
+                            <Dropdown 
+                                //aria-labelledby='gcx-as-language-comprehension-en-reading-label'
+                                styles={{title: { borderColor: borderColor }}} 
+                                options={props.languageComprehensionList} 
+                                onChange={(e, option) => { 
+                                    if (option) {
+                                        updateLanguageComprehension(6, option.text);
+                                    }
+                                    else {
+                                        updateLanguageComprehension(6, 'C');
+                                    }
+                                }} 
+                                selectedKey={
+                                    languageComprehension
+                                    ? props.languageComprehensionList.find(
+                                        (item: any) => item.text === languageComprehension[6] 
+                                    )?.key : null
+                                } 
+                            />
+                        </Stack>
+                    </Stack>
+                </div>
+                
+            ) : null}
+            
             <Stack horizontal verticalAlign='center'>
                 <label id='gcx-as-location-label'>
                     <b style={titleStyle}>
@@ -208,16 +451,16 @@ const SearchForm = (props: ISearchFormProps) => {
                 id='ddRegion' 
                 aria-labelledby='gcx-as-location-label'
                 styles={{title: { borderColor: borderColor }}} 
-                options={props.regionList} 
+                options={props.cityList} 
                 onChange={(e, option) => { 
                     if (option) {
-                        setRegionId(option.key.toString());
+                        setCity(option.key.toString());
                     }
                     else {
-                        setRegionId('')
+                        setCity('');
                     }
                 }} 
-                selectedKey={location ? parseInt(location, 10) : null} 
+                selectedKey={city ? parseInt(city, 10) : null} 
             /><br />
 
             <Stack horizontal verticalAlign='center'>
@@ -227,21 +470,60 @@ const SearchForm = (props: ISearchFormProps) => {
                     </b>
                 </label>
             </Stack>
-            <Dropdown 
-                id='ddDuration' 
-                aria-labelledby='gcx-as-duration-label'
-                styles={{title: { borderColor: borderColor }}} 
-                options={props.durationList} 
-                onChange={(e, option) => { 
-                    if (option) {
-                        setDurationId(option.key.toString());
-                    }
-                    else {
-                        setDurationId('')
-                    }
-                }} 
-                selectedKey={duration ? parseInt(duration, 10) : null} 
-            /><br />
+
+            <Stack horizontal verticalAlign='center' styles={stackStyles} tokens={stackTokensDuration}>
+                <Dropdown 
+                    id='ddDurationOperator' 
+                    aria-labelledby='gcx-as-duration-label'
+                    styles={{title: { borderColor: borderColor }}} 
+                    options={props.durationOperatorsList} 
+                    onChange={(e, option) => { 
+                        if (option) {
+                            setDurationOperator(option.key.toString());
+                        }
+                        else {
+                            setDurationOperator('');
+                        }
+                    }} 
+                    selectedKey={durationOperator ? parseInt(durationOperator, 10) : null} 
+                />
+                <label id='gcx-as-duration-quantity-label'>
+                    <b style={titleStyle}>
+                        {strings.durationAmount}
+                    </b>
+                </label>
+                <TextField 
+                    type='number'
+                    min={1}
+                    max={12}
+                    id='txtDurationQuantity' 
+                    aria-labelledby='gcx-as-duration-quantity-label'
+                    styles={{fieldGroup: { borderColor: borderColor }}}  
+                    onChange={(e) => setDurationQuantity(e.currentTarget.value)} 
+                    value={durationQuantity} 
+                />
+                <label id='gcx-as-duration-units-label'>
+                    <b style={titleStyle}>
+                        {strings.durationUnit}
+                    </b>
+                </label>
+                <Dropdown 
+                    id='ddDuration' 
+                    aria-labelledby='gcx-as-duration-units-label'
+                    styles={{title: { borderColor: borderColor }}} 
+                    options={props.durationList} 
+                    onChange={(e, option) => { 
+                        if (option) {
+                            setDuration(option.key.toString());
+                        }
+                        else {
+                            setDuration('');
+                        }
+                    }} 
+                    selectedKey={duration ? parseInt(duration, 10) : null} 
+                />
+            </Stack>
+            <br />
 
             <Stack horizontal verticalAlign='center' horizontalAlign="end" tokens={stackTokens}>
                 <DefaultButton 

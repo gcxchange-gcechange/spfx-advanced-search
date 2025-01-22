@@ -29,6 +29,8 @@ export enum AdvancedSearchSessionKeys {
 
 const SearchForm = (props: ISearchFormProps) => {
     const strings = Globals.getStrings();
+    const comprehensionDefault = 'CCC-CCC';
+    const comprehensionSingleDefault = 'C';
 
     const [jobTitle, setJobTitle] = React.useState('');
     const [classificationCode, setClassificationCode] = React.useState('');
@@ -38,7 +40,7 @@ const SearchForm = (props: ISearchFormProps) => {
     const [durationQuantity, setDurationQuantity] = React.useState('');
     const [durationOperator, setDurationOperator] = React.useState('1');
     const [languageRequirement, setLanguageRequirement] = React.useState('');
-    const [languageComprehension, setLanguageComprehension] = React.useState('CCC-CCC');
+    const [languageComprehension, setLanguageComprehension] = React.useState(comprehensionDefault);
     const [city, setCity] = React.useState('');
 
     const SetSessionKeys = (): void => {
@@ -90,7 +92,7 @@ const SearchForm = (props: ISearchFormProps) => {
         setDurationQuantity('');
         setDurationOperator('1');
         setLanguageRequirement('');
-        setLanguageComprehension('');
+        setLanguageComprehension(comprehensionDefault);
         setCity('');
 
         ClearSessionKeys();
@@ -125,7 +127,7 @@ const SearchForm = (props: ISearchFormProps) => {
     const stackTokensDuration: IStackTokens = { childrenGap: 15 };
     const stackStyles: IStackStyles = {
         root: {
-            width: '100%'
+            width: '100%',
         },
     };
     const compStackStyle= {
@@ -242,7 +244,7 @@ const SearchForm = (props: ISearchFormProps) => {
                     if (option) {
                         setLanguageRequirement(option.key.toString());
                         if (languageRequirement !== '3')
-                            setLanguageComprehension('CCC-CCC');
+                            setLanguageComprehension(comprehensionDefault);
                     }
                     else {
                         setLanguageRequirement('');
@@ -276,7 +278,7 @@ const SearchForm = (props: ISearchFormProps) => {
                                         updateLanguageComprehension(0, option.text);
                                     }
                                     else {
-                                        updateLanguageComprehension(0, 'C');
+                                        updateLanguageComprehension(0, comprehensionSingleDefault);
                                     }
                                 }} 
                                 selectedKey={
@@ -302,7 +304,7 @@ const SearchForm = (props: ISearchFormProps) => {
                                         updateLanguageComprehension(4, option.text);
                                     }
                                     else {
-                                        updateLanguageComprehension(4, 'C');
+                                        updateLanguageComprehension(4, comprehensionSingleDefault);
                                     }
                                 }} 
                                 selectedKey={
@@ -337,7 +339,7 @@ const SearchForm = (props: ISearchFormProps) => {
                                         updateLanguageComprehension(1, option.text);
                                     }
                                     else {
-                                        updateLanguageComprehension(1, 'C');
+                                        updateLanguageComprehension(1, comprehensionSingleDefault);
                                     }
                                 }} 
                                 selectedKey={
@@ -363,7 +365,7 @@ const SearchForm = (props: ISearchFormProps) => {
                                         updateLanguageComprehension(5, option.text);
                                     }
                                     else {
-                                        updateLanguageComprehension(5, 'C');
+                                        updateLanguageComprehension(5, comprehensionSingleDefault);
                                     }
                                 }} 
                                 selectedKey={
@@ -398,7 +400,7 @@ const SearchForm = (props: ISearchFormProps) => {
                                         updateLanguageComprehension(2, option.text);
                                     }
                                     else {
-                                        updateLanguageComprehension(2, 'C');
+                                        updateLanguageComprehension(2, comprehensionSingleDefault);
                                     }
                                 }} 
                                 selectedKey={
@@ -424,7 +426,7 @@ const SearchForm = (props: ISearchFormProps) => {
                                         updateLanguageComprehension(6, option.text);
                                     }
                                     else {
-                                        updateLanguageComprehension(6, 'C');
+                                        updateLanguageComprehension(6, comprehensionSingleDefault);
                                     }
                                 }} 
                                 selectedKey={

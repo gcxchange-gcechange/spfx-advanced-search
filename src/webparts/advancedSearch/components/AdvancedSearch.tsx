@@ -22,11 +22,11 @@ const departmentList: IDropdownOption[] = [];
 const durationList: IDropdownOption[] = [];
 const durationOperatorList: IDropdownOption[] = [];
 const languageRequirementList: IDropdownOption[] = [];
-const languageComprehensionList: IDropdownOption[] = [
-  { key: 0, text: 'A' },
-  { key: 1, text: 'B' },
-  { key: 2, text: 'C' },
-];
+// const languageComprehensionList: IDropdownOption[] = [
+//   { key: 0, text: 'A' },
+//   { key: 1, text: 'B' },
+//   { key: 2, text: 'C' },
+// ];
 const cityList: IDropdownOption[] = [];
 
 
@@ -152,7 +152,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
             durationList={durationList} 
             durationOperatorsList={durationOperatorList} 
             languageRequirementList={languageRequirementList} 
-            languageComprehensionList={languageComprehensionList}
+            // languageComprehensionList={languageComprehensionList}
             cityList={cityList} 
           />
         </div>

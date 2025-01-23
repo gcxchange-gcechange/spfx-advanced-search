@@ -10,7 +10,7 @@ export interface ISearchFormProps {
     durationList: any;
     durationOperatorsList: any;
     languageRequirementList: any;
-    languageComprehensionList: any;
+    //languageComprehensionList: any;
     cityList: any;
 }
 
@@ -23,14 +23,14 @@ export enum AdvancedSearchSessionKeys {
     DurationQuantity = 'gcx-cm-durationQuantity',
     DurationOperator = 'gcx-cm-durationOperator',
     LanguageRequirement = 'gcx-cm-languageRequirement',
-    LanguageComprehension = 'gcx-cm-languageComprehension',
-    City = 'gcx-cm-city',
+    //LanguageComprehension = 'gcx-cm-languageComprehension',
+    City = 'gcx-cm-city'
 }
 
 const SearchForm = (props: ISearchFormProps) => {
     const strings = Globals.getStrings();
-    const comprehensionDefault = 'CCC-CCC';
-    const comprehensionSingleDefault = 'C';
+    //const comprehensionDefault = 'CCC-CCC';
+    //const comprehensionSingleDefault = 'C';
 
     const [jobTitle, setJobTitle] = React.useState('');
     const [classificationCode, setClassificationCode] = React.useState('');
@@ -40,7 +40,7 @@ const SearchForm = (props: ISearchFormProps) => {
     const [durationQuantity, setDurationQuantity] = React.useState('');
     const [durationOperator, setDurationOperator] = React.useState('1');
     const [languageRequirement, setLanguageRequirement] = React.useState('');
-    const [languageComprehension, setLanguageComprehension] = React.useState(comprehensionDefault);
+    //const [languageComprehension, setLanguageComprehension] = React.useState(comprehensionDefault);
     const [city, setCity] = React.useState('');
 
     const SetSessionKeys = (): void => {
@@ -52,7 +52,7 @@ const SearchForm = (props: ISearchFormProps) => {
         sessionStorage.setItem(AdvancedSearchSessionKeys.DurationQuantity, durationQuantity);
         sessionStorage.setItem(AdvancedSearchSessionKeys.DurationOperator, durationOperator);
         sessionStorage.setItem(AdvancedSearchSessionKeys.LanguageRequirement, languageRequirement);
-        sessionStorage.setItem(AdvancedSearchSessionKeys.LanguageComprehension, languageComprehension);
+        //sessionStorage.setItem(AdvancedSearchSessionKeys.LanguageComprehension, languageComprehension);
         sessionStorage.setItem(AdvancedSearchSessionKeys.City, city);
 
         if (Globals.isDebugMode()) {
@@ -64,7 +64,7 @@ const SearchForm = (props: ISearchFormProps) => {
             console.log('durationQuantity: ' + durationQuantity);
             console.log('durationOperator: ' + durationOperator);
             console.log('languageRequirement: ' + languageRequirement);
-            console.log('languageComprehension: ' + languageComprehension);
+            //console.log('languageComprehension: ' + languageComprehension);
             console.log('city: ' + city +'\n');
         }
         
@@ -79,7 +79,7 @@ const SearchForm = (props: ISearchFormProps) => {
         sessionStorage.removeItem(AdvancedSearchSessionKeys.DurationQuantity);
         sessionStorage.removeItem(AdvancedSearchSessionKeys.DurationOperator);
         sessionStorage.removeItem(AdvancedSearchSessionKeys.LanguageRequirement);
-        sessionStorage.removeItem(AdvancedSearchSessionKeys.LanguageComprehension);
+        //sessionStorage.removeItem(AdvancedSearchSessionKeys.LanguageComprehension);
         sessionStorage.removeItem(AdvancedSearchSessionKeys.City);
     }
 
@@ -92,7 +92,7 @@ const SearchForm = (props: ISearchFormProps) => {
         setDurationQuantity('');
         setDurationOperator('1');
         setLanguageRequirement('');
-        setLanguageComprehension(comprehensionDefault);
+        //setLanguageComprehension(comprehensionDefault);
         setCity('');
 
         ClearSessionKeys();
@@ -100,16 +100,16 @@ const SearchForm = (props: ISearchFormProps) => {
 
     React.useEffect(() => {
         SetSessionKeys();
-    }, [jobTitle, classificationCode, classificationLevel, department, duration, durationQuantity, durationOperator, languageRequirement, languageComprehension, city]);
+    }, [jobTitle, classificationCode, classificationLevel, department, duration, durationQuantity, durationOperator, languageRequirement, /* languageComprehension, */ city]);
 
-    const updateLanguageComprehension = (index: number, value: string): void => {
-        if (index >= 0 && index <= languageComprehension.length) {
-            setLanguageComprehension(languageComprehension.slice(0, index) + value + languageComprehension.slice(index + 1));
-        } else {
-            if (Globals.isDebugMode())
-                console.error('Index out of bounds for language comprehension.')
-        }
-    };
+    // const updateLanguageComprehension = (index: number, value: string): void => {
+    //     if (index >= 0 && index <= languageComprehension.length) {
+    //         setLanguageComprehension(languageComprehension.slice(0, index) + value + languageComprehension.slice(index + 1));
+    //     } else {
+    //         if (Globals.isDebugMode())
+    //             console.error('Index out of bounds for language comprehension.')
+    //     }
+    // };
 
     const titleStyle = {
         fontWeight: '500', 
@@ -130,13 +130,13 @@ const SearchForm = (props: ISearchFormProps) => {
             width: '100%',
         },
     };
-    const compStackStyle= {
-        root: {
-            width: '100%',
-            padding: '10px 15px',
-            gap: '15px'
-        }
-    }
+    // const compStackStyle= {
+    //     root: {
+    //         width: '100%',
+    //         padding: '10px 15px',
+    //         gap: '15px'
+    //     }
+    // }
 
     if (Globals.isOpen()){
         SetSessionKeys();
@@ -243,8 +243,8 @@ const SearchForm = (props: ISearchFormProps) => {
                 onChange={(e, option) => { 
                     if (option) {
                         setLanguageRequirement(option.key.toString());
-                        if (languageRequirement !== '3')
-                            setLanguageComprehension(comprehensionDefault);
+                        // if (languageRequirement !== '3')
+                        //     setLanguageComprehension(comprehensionDefault);
                     }
                     else {
                         setLanguageRequirement('');
@@ -253,7 +253,7 @@ const SearchForm = (props: ISearchFormProps) => {
                 selectedKey={languageRequirement ? parseInt(languageRequirement, 10) : null} 
             /><br />
 
-            { languageRequirement === '3' ? (
+            {/* { languageRequirement === '3' ? (
                 <div>
 
                     <label>
@@ -440,7 +440,7 @@ const SearchForm = (props: ISearchFormProps) => {
                     </Stack>
                 </div>
                 
-            ) : null}
+            ) : null} */}
             
             <Stack horizontal verticalAlign='center'>
                 <label id='gcx-as-location-label'>

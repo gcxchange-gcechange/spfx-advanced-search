@@ -109,14 +109,14 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
       return durationList;
     });
 
-    for (let i = 0; i < durationOperatorList.length; i++) {
+    for (let i = 0; i <= durationOperatorList.length; i++) {
       durationOperatorList.pop();
     }
 
     durationOperatorList.push({ key: 0, text: strings.operatorExactly});
     durationOperatorList.push({ key: 1, text: strings.operatorGreaterThan});
     durationOperatorList.push({ key: 2, text: strings.operatorLessThan});
-    
+
     reacthandler.setState({durationOperatorList});
   }  
 

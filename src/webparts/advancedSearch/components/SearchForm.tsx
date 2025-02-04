@@ -195,6 +195,7 @@ const SearchForm = (props: ISearchFormProps) => {
                     id='ddClassificationCode' 
                     aria-labelledby='gcx-as-classification-code-label'
                     styles={{title: { borderColor: borderColor }}} 
+                    style={{minWidth: '50px'}}
                     options={props.classificationCodeList} 
                     onChange={(e, option) => { 
                         if (option) {
@@ -215,6 +216,7 @@ const SearchForm = (props: ISearchFormProps) => {
                     id='ddClassificationLevel' 
                     aria-labelledby='gcx-as-classification-level-label'
                     styles={{title: { borderColor: borderColor }}} 
+                    style={{minWidth: '50px'}}
                     options={props.classificationLevelList} 
                     onChange={(e, option) => { 
                         if (option) {
@@ -478,6 +480,7 @@ const SearchForm = (props: ISearchFormProps) => {
                     id='ddDurationOperator' 
                     aria-labelledby='gcx-as-duration-label'
                     styles={{title: { borderColor: borderColor }}} 
+                    style={{minWidth: '150px'}}
                     options={props.durationOperatorsList} 
                     onChange={(e, option) => { 
                         if (option) {
@@ -513,6 +516,7 @@ const SearchForm = (props: ISearchFormProps) => {
                     id='ddDuration' 
                     aria-labelledby='gcx-as-duration-units-label'
                     styles={{title: { borderColor: borderColor }}} 
+                    style={{minWidth: '100px'}}
                     options={props.durationList} 
                     onChange={(e, option) => { 
                         if (option) {

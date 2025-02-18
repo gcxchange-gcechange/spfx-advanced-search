@@ -35,7 +35,6 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
 
   buttonStyle = {
     fontSize: '16px',
-    padding: '0',
     minWidth: '25px',
     minHeight: '25px',
     border: '0',
@@ -126,9 +125,9 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
 
     return (
       <section className={`${styles.advancedSearch} ${hasTeamsContext ? styles.teams : ''}`}>
-        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-          <div style={{fontSize: '20px', fontWeight: '600', paddingBottom: '20px', display: 'inline-block'}}>
-            {this.strings.AdvancedSearch} :
+        <div style={{display: 'flex', alignItems: 'center', paddingBottom: '20px', gap: '10px'}}>
+          <div style={{fontSize: '20px', fontWeight: '600', display: 'inline-block'}}>
+            {this.strings.AdvancedSearch}
           </div>
           <div style={{float: 'right'}}>
             <DefaultButton 

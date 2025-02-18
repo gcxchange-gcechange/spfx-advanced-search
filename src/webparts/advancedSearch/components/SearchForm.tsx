@@ -195,7 +195,7 @@ const SearchForm = (props: ISearchFormProps) => {
                     id='ddClassificationCode' 
                     aria-labelledby='gcx-as-classification-code-label'
                     styles={{title: { borderColor: borderColor }}} 
-                    style={{minWidth: '50px'}}
+                    style={{minWidth: '90px'}}
                     options={props.classificationCodeList} 
                     onChange={(e, option) => { 
                         if (option) {

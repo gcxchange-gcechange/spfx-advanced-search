@@ -37,12 +37,12 @@ const languageRequirementListFr: IDropdownOption[] = [];
 const cityListEn: IDropdownOption[] = [];
 const cityListFr: IDropdownOption[] = [];
 
-const classCodeCtrl = new SessionController<any[]>('gcx-classCodeList');
-const classLevelCtrl = new SessionController<any[]>('gcx-classLevelList');
-const departmentCtrl = new SessionController<any[]>('gcx-departmentList');
-const durationCtrl = new SessionController<any[]>('gcx-durationList');
-const languageReqCtrl = new SessionController<any[]>('gcx-languageReqList');
-const cityCtrl = new SessionController<any[]>('gcx-gcx-cityList');
+const classCodeCtrl = new SessionController<any[]>('gcx-cm-classCodeList');
+const classLevelCtrl = new SessionController<any[]>('gcx-cm-classLevelList');
+const departmentCtrl = new SessionController<any[]>('gcx-cm-departmentList');
+const durationCtrl = new SessionController<any[]>('gcx-cm-durationList');
+const languageReqCtrl = new SessionController<any[]>('gcx-cm-languageReqList');
+const cityCtrl = new SessionController<any[]>('gcx-cm-cityList');
 
 export default class AdvancedSearch extends React.Component<IAdvancedSearchProps> {
   strings = Globals.getStrings();
@@ -178,7 +178,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
     .then((data) => {
       if (Globals.isDebugMode())
         console.log(data);
-      
+
       cityListEn.length = 0;
       cityListFr.length = 0;
       

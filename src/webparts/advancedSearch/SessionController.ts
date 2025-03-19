@@ -13,11 +13,16 @@ export class SessionController<T> {
     }
 
     public save(data: T): void {
-        const item = {
-            value: data,
-            timestamp: this.getTimestamp()
-        };
-        sessionStorage.setItem(this.storageKey, JSON.stringify(item));
+        try {
+            const item = {
+                value: data,
+                timestamp: this.getTimestamp()
+            };
+            sessionStorage.setItem(this.storageKey, JSON.stringify(item));
+        }
+        catch (e) {
+            console.error(e);
+        }
     }
 
     async fetch(fetchFunction?: () => Promise<T>): Promise<T | undefined> {

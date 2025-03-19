@@ -11,6 +11,7 @@ export class Globals {
     private static _language: string;
     private static _isOpen: boolean = false;
     private static _debugMode: boolean = false;
+    private static _cacheTime: number;
 
     public static isOpen(): boolean {
         return this._isOpen;
@@ -54,5 +55,13 @@ export class Globals {
 
     public static setDebugMode(state: boolean): void {
         this._debugMode = state;
+    }
+
+    public static getCacheTime(): number {
+        return this._cacheTime;
+    }
+
+    public static setCacheTime(time: number): void {
+        this._cacheTime = time;
     }
 }

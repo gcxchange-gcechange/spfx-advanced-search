@@ -9,6 +9,7 @@ export interface IAdvancedSearchProps {
   context: WebPartContext;
   selectedKey?: string[];
   debug: boolean;
+  cacheTime: number
   //decisionChoiceCallback?:(option: string) => void;
   //searchText: string;
 }

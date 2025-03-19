@@ -3,6 +3,8 @@ declare interface IAdvancedSearchWebPartStrings {
   BasicGroupName: string;
   LanguageFieldLabel: string;
   DebugFieldLabel: string;
+  CacheTimeLabel: string;
+  CacheTimeDescription: string;
   AppLocalEnvironmentSharePoint: string;
   AppLocalEnvironmentTeams: string;
   AppLocalEnvironmentOffice: string;

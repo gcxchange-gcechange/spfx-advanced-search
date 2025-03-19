@@ -1,6 +1,8 @@
+import { Globals } from "./Globals";
+
 export class SessionController<T> {
     private storageKey: string;
-    private expirationTime: number = 10 * 60 * 1000;
+    private expirationTime: number = Globals.getCacheTime() * 60 * 1000;
 
     constructor(storageKey: string) {
         this.storageKey = storageKey;

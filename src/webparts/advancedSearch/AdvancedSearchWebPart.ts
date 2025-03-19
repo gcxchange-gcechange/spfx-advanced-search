@@ -17,6 +17,7 @@ import { Globals, Language } from './Globals';
 export interface IAdvancedSearchWebPartProps {
   language: string;
   debug: boolean;
+  cacheTime: number;
 }
 
 export default class AdvancedSearchWebPart extends BaseClientSideWebPart<IAdvancedSearchWebPartProps> {
@@ -35,7 +36,8 @@ export default class AdvancedSearchWebPart extends BaseClientSideWebPart<IAdvanc
         userDisplayName: this.context.pageContext.user.displayName,
         context: this.context,
         selectedKey: ['50'],
-        debug: this.properties.debug
+        debug: this.properties.debug,
+        cacheTime: this.properties.cacheTime
       }
     );
 
@@ -44,6 +46,7 @@ export default class AdvancedSearchWebPart extends BaseClientSideWebPart<IAdvanc
 
   protected onInit(): Promise<void> {
     Globals.setLanguage(this.properties.language);
+    Globals.setCacheTime(this.properties.cacheTime ? this.properties.cacheTime : 30);
     Globals.setDebugMode(this.properties.debug);
 
     return this._getEnvironmentMessage().then(message => {
@@ -122,6 +125,18 @@ export default class AdvancedSearchWebPart extends BaseClientSideWebPart<IAdvanc
                   value: Globals.getLanguage(),
                   placeholder: `${Language.English} or ${Language.French}`
                 }),
+                PropertyPaneTextField('cacheTime', {
+                  label: strings.CacheTimeLabel,
+                  description: strings.CacheTimeDescription,
+                  value: Globals.getCacheTime().toString(),
+                  onGetErrorMessage: (value: string): string => {
+                    if (isNaN(Number(value)))
+                      return "Please enter a valid number.";
+                    else if (Number(value) <= 0)
+                      return "Please number greater than 0";
+                    return "";
+                  }
+                }),
                 PropertyPaneToggle('debug', {
                   label: strings.DebugFieldLabel,
                   checked: Globals.isDebugMode()
@@ -141,6 +156,9 @@ export default class AdvancedSearchWebPart extends BaseClientSideWebPart<IAdvanc
         break;
       case 'debug':
         Globals.setDebugMode(newValue)
+        break;
+      case 'cacheTime':
+        Globals.setCacheTime(newValue)
         break;
     }
   }

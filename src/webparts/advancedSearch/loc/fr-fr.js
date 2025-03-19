@@ -4,6 +4,8 @@ define([], function() {
       "BasicGroupName": "Group Name",
       "LanguageFieldLabel": "Langue",
       "DebugFieldLabel": "Mode débogage",
+      "CacheTimeLabel": "Temps de cache",
+      "CacheTimeDescription": "Nombre de minutes avant la récupération de nouvelles données.",
       "AppLocalEnvironmentSharePoint": "The app is running on your local environment as SharePoint web part",
       "AppLocalEnvironmentTeams": "The app is running on your local environment as Microsoft Teams app",
       "AppLocalEnvironmentOffice": "The app is running on your local environment in office.com",

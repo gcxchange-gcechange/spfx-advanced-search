@@ -1,17 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Stack, TextField, PrimaryButton, DefaultButton, IStackTokens, Dropdown, IDropdownOption, IStackStyles  } from "@fluentui/react";
 import * as React from "react";
-import { Globals } from "../Globals";
+import { Globals, Language } from "../Globals";
 
 export interface ISearchFormProps {
-    classificationCodeList: IDropdownOption[];
-    classificationLevelList: any;
-    departmentList: any;
-    durationList: any;
-    durationOperatorsList: any;
-    languageRequirementList: any;
-    //languageComprehensionList: any;
-    cityList: any;
+    classificationCodeListEn: IDropdownOption[];
+    classificationCodeListFr: IDropdownOption[];
+    classificationLevelListEn: IDropdownOption[];
+    classificationLevelListFr: IDropdownOption[];
+    departmentListEn: IDropdownOption[];
+    departmentListFr: IDropdownOption[];
+    durationListEn: IDropdownOption[];
+    durationListFr: IDropdownOption[];
+    durationOperatorsList: IDropdownOption[];
+    languageRequirementListEn: IDropdownOption[];
+    languageRequirementListFr: IDropdownOption[];
+    //languageComprehensionList: IDropdownOption[];
+    cityListEn: IDropdownOption[];
+    cityListFr: IDropdownOption[];
 }
 
 export enum AdvancedSearchSessionKeys {
@@ -173,7 +179,7 @@ const SearchForm = (props: ISearchFormProps) => {
                 id='ddDepartment' 
                 aria-labelledby='gcx-as-department-label'
                 styles={{title: { borderColor: borderColor }}} 
-                options={props.departmentList} 
+                options={Globals.getLanguage() === Language.French ? props.departmentListFr : props.departmentListEn} 
                 onChange={(e, option) => { 
                     if (option) {
                         setDepartment(option.key.toString());
@@ -196,7 +202,7 @@ const SearchForm = (props: ISearchFormProps) => {
                     aria-labelledby='gcx-as-classification-code-label'
                     styles={{title: { borderColor: borderColor }}} 
                     style={{minWidth: '90px'}}
-                    options={props.classificationCodeList} 
+                    options={Globals.getLanguage() === Language.French ? props.classificationCodeListFr : props.classificationCodeListEn} 
                     onChange={(e, option) => { 
                         if (option) {
                             setClassificationCode(option.key.toString());
@@ -217,7 +223,7 @@ const SearchForm = (props: ISearchFormProps) => {
                     aria-labelledby='gcx-as-classification-level-label'
                     styles={{title: { borderColor: borderColor }}} 
                     style={{minWidth: '50px'}}
-                    options={props.classificationLevelList} 
+                    options={Globals.getLanguage() === Language.French ? props.classificationLevelListFr : props.classificationLevelListEn} 
                     onChange={(e, option) => { 
                         if (option) {
                             setClassificationLevel(option.key.toString());
@@ -241,7 +247,7 @@ const SearchForm = (props: ISearchFormProps) => {
                 id='ddLanguageRequirement' 
                 aria-labelledby='gcx-as-language-requirement-label'
                 styles={{title: { borderColor: borderColor }}} 
-                options={props.languageRequirementList} 
+                options={Globals.getLanguage() === Language.French ? props.languageRequirementListFr : props.languageRequirementListEn} 
                 onChange={(e, option) => { 
                     if (option) {
                         setLanguageRequirement(option.key.toString());
@@ -455,7 +461,7 @@ const SearchForm = (props: ISearchFormProps) => {
                 id='ddRegion' 
                 aria-labelledby='gcx-as-location-label'
                 styles={{title: { borderColor: borderColor }}} 
-                options={props.cityList} 
+                options={Globals.getLanguage() === Language.French ? props.cityListFr : props.cityListEn} 
                 onChange={(e, option) => { 
                     if (option) {
                         setCity(option.key.toString());
@@ -517,7 +523,7 @@ const SearchForm = (props: ISearchFormProps) => {
                     aria-labelledby='gcx-as-duration-units-label'
                     styles={{title: { borderColor: borderColor }}} 
                     style={{minWidth: '100px'}}
-                    options={props.durationList} 
+                    options={Globals.getLanguage() === Language.French ? props.durationListFr : props.durationListEn} 
                     onChange={(e, option) => { 
                         if (option) {
                             setDuration(option.key.toString());

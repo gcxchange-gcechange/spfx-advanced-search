@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-this-alias */
 /* eslint-disable guard-for-in */
 /* eslint-disable @typescript-eslint/no-floating-promises */
@@ -15,23 +16,37 @@ import SearchForm from './SearchForm';
 import { Globals, Language } from '../Globals';
 import { DefaultButton, Icon } from '@fluentui/react';
 import { Buffer } from 'buffer';
+import { SessionController } from '../SessionController';
 
-const classificationCodeList: IDropdownOption[] = [];
-const classificationLevelList: IDropdownOption[] = [];
-const departmentList: IDropdownOption[] = [];
-const durationList: IDropdownOption[] = [];
+const classificationCodeListEn: IDropdownOption[] = [];
+const classificationCodeListFr: IDropdownOption[] = [];
+const classificationLevelListEn: IDropdownOption[] = [];
+const classificationLevelListFr: IDropdownOption[] = [];
+const departmentListEn: IDropdownOption[] = [];
+const departmentListFr: IDropdownOption[] = [];
+const durationListEn: IDropdownOption[] = [];
+const durationListFr: IDropdownOption[] = [];
 const durationOperatorList: IDropdownOption[] = [];
-const languageRequirementList: IDropdownOption[] = [];
+const languageRequirementListEn: IDropdownOption[] = [];
+const languageRequirementListFr: IDropdownOption[] = [];
 // const languageComprehensionList: IDropdownOption[] = [
 //   { key: 0, text: 'A' },
 //   { key: 1, text: 'B' },
 //   { key: 2, text: 'C' },
 // ];
-const cityList: IDropdownOption[] = [];
+const cityListEn: IDropdownOption[] = [];
+const cityListFr: IDropdownOption[] = [];
 
+const classCodeCtrl = new SessionController<any[]>('gcx-classCodeList');
+const classLevelCtrl = new SessionController<any[]>('gcx-classLevelList');
+const departmentCtrl = new SessionController<any[]>('gcx-departmentList');
+const durationCtrl = new SessionController<any[]>('gcx-durationList');
+const languageReqCtrl = new SessionController<any[]>('gcx-languageReqList');
+const cityCtrl = new SessionController<any[]>('gcx-gcx-cityList');
 
 export default class AdvancedSearch extends React.Component<IAdvancedSearchProps> {
   strings = Globals.getStrings();
+  sp: SPFI;
 
   buttonStyle = {
     fontSize: '16px',
@@ -45,76 +60,147 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
     super(props); 
     this.state = { 
     }; 
-  } 
+  }
 
   public async componentDidMount(): Promise<void>
   {
+    await this.fetchData();
+  } 
+  
+  public async componentDidUpdate(prevProps: Readonly<IAdvancedSearchProps>, prevState: Readonly<{}>, snapshot?: any): Promise<void> {
+    if (prevProps.language !== this.props.language && (this.props.language === Language.English || this.props.language === Language.French)) {
+      const strings = Globals.getStrings();
+
+      durationOperatorList.length = 0;
+
+      durationOperatorList.push({ key: 0, text: strings.operatorExactly});
+      durationOperatorList.push({ key: 1, text: strings.operatorGreaterThan});
+      durationOperatorList.push({ key: 2, text: strings.operatorLessThan});
+
+      this.setState({durationOperatorList});
+
+      this.forceUpdate();
+    }
+  }
+
+  private fetchData(): void {
     const reacthandler = this;
-    const sp:SPFI = getSP(this.props.context);
+    this.sp = getSP(this.props.context);
     const strings = Globals.getStrings();
-    const lang = Globals.getLanguage();
+    
+    classCodeCtrl.fetch(this.sp.web.lists.getByTitle('ClassificationCode').select('ID,NameEn,NameFr').items)
+    .then((data) => {
+      if (Globals.isDebugMode())
+        console.log(data);
 
-    sp.web.lists.getByTitle('Department').select('ID,NameEn,NameFr').items().then((data) => {
+      classificationCodeListEn.length = 0;
+      classificationCodeListFr.length = 0;
+      
       for(const k in data){
-        departmentList.push({key:data[k].ID, text: lang === Language.French ? this.fixEncoding(data[k].NameFr) : data[k].NameEn});
+        classificationCodeListEn.push({key:data[k].ID, text: data[k].NameEn});
+        classificationCodeListFr.push({key:data[k].ID, text: data[k].NameFr});
       }
 
-      departmentList.sort((a, b) => a.text.localeCompare(b.text));
+      classificationCodeListEn.sort((a, b) => a.text.localeCompare(b.text));
+      classificationCodeListFr.sort((a, b) => a.text.localeCompare(b.text));
 
-      reacthandler.setState({departmentList});
-      return departmentList;
+      reacthandler.setState({classificationCodeListEn, classificationCodeListFr});
     });
 
-    sp.web.lists.getByTitle('ClassificationCode').select('ID,NameEn,NameFr').items().then((data) => {
-      for(const k in data){
-        classificationCodeList.push({key:data[k].ID, text: lang === Language.French ? data[k].NameFr : data[k].NameEn});
-      }
-      reacthandler.setState({classificationCodeList});
-      return classificationCodeList;
-    });
+    classLevelCtrl.fetch(this.sp.web.lists.getByTitle('ClassificationLevel').select('ID,NameEn,NameFr').items)
+    .then((data) => {
+      if (Globals.isDebugMode())
+        console.log(data);
 
-    sp.web.lists.getByTitle('ClassificationLevel').select('ID,NameEn,NameFr').items().then((data) => {
+      classificationLevelListEn.length = 0;
+      classificationLevelListFr.length = 0;
+      
       for(const k in data){
-        classificationLevelList.push({key:data[k].ID, text: lang === Language.French ? data[k].NameFr : data[k].NameEn});
-      }
-      reacthandler.setState({classificationLevelList});
-      return classificationLevelList;
-    });
-
-    sp.web.lists.getByTitle('LanguageRequirement').select('ID,NameEn,NameFr').items().then((data) => {
-      for(const k in data){
-        languageRequirementList.push({key:data[k].ID, text: lang === Language.French ? data[k].NameFr : data[k].NameEn});
-      }
-      reacthandler.setState({languageRequirementList});
-      return languageRequirementList;
-    });
-
-    sp.web.lists.getByTitle('City').select('ID,NameEn,NameFr').items().then((data) => {
-      for(const k in data){
-        cityList.push({key:data[k].ID, text: lang === Language.French ? data[k].NameFr : data[k].NameEn});
+        classificationLevelListEn.push({key:data[k].ID, text: data[k].NameEn});
+        classificationLevelListFr.push({key:data[k].ID, text: data[k].NameFr});
       }
 
-      cityList.sort((a, b) => a.text.localeCompare(b.text));
-
-      reacthandler.setState({cityList});
-      return cityList;
+      reacthandler.setState({classificationLevelListEn, classificationLevelListFr});
     });
 
-    sp.web.lists.getByTitle('Duration').select('ID,NameEn,NameFr').items().then((data) => {
+    departmentCtrl.fetch(this.sp.web.lists.getByTitle('Department').select('ID,NameEn,NameFr').items)
+    .then((data) => {
+      if (Globals.isDebugMode())
+        console.log(data);
+
+      departmentListEn.length = 0;
+      departmentListFr.length = 0;
+      
       for(const k in data){
-        durationList.push({key:data[k].ID, text: lang === Language.French ? data[k].NameFr : data[k].NameEn});
+        departmentListEn.push({key:data[k].ID, text: data[k].NameEn});
+        departmentListFr.push({key:data[k].ID, text: reacthandler.fixEncoding(data[k].NameFr)});
       }
-      reacthandler.setState({durationList});
-      return durationList;
+
+      departmentListEn.sort((a, b) => a.text.localeCompare(b.text));
+      departmentListFr.sort((a, b) => a.text.localeCompare(b.text));
+
+      reacthandler.setState({departmentListEn, departmentListFr});
     });
 
-    durationOperatorList.splice(0, durationOperatorList.length);
+    durationCtrl.fetch(this.sp.web.lists.getByTitle('Duration').select('ID,NameEn,NameFr').items)
+    .then((data) => {
+      if (Globals.isDebugMode())
+        console.log(data);
+
+      durationListEn.length = 0;
+      durationListFr.length = 0;
+      
+      for(const k in data){
+        durationListEn.push({key:data[k].ID, text: data[k].NameEn});
+        durationListFr.push({key:data[k].ID, text: data[k].NameFr});
+      }
+
+      reacthandler.setState({durationListEn, durationListFr});
+    });
+
+    languageReqCtrl.fetch(this.sp.web.lists.getByTitle('LanguageRequirement').select('ID,NameEn,NameFr').items)
+    .then((data) => {
+      if (Globals.isDebugMode())
+        console.log(data);
+
+      languageRequirementListEn.length = 0;
+      languageRequirementListFr.length = 0;
+      
+      for(const k in data){
+        languageRequirementListEn.push({key:data[k].ID, text: data[k].NameEn});
+        languageRequirementListFr.push({key:data[k].ID, text: data[k].NameFr});
+      }
+
+      reacthandler.setState({languageRequirementListEn, languageRequirementListFr});
+    });
+
+    cityCtrl.fetch(this.sp.web.lists.getByTitle('City').select('ID,NameEn,NameFr').items)
+    .then((data) => {
+      if (Globals.isDebugMode())
+        console.log(data);
+      
+      cityListEn.length = 0;
+      cityListFr.length = 0;
+      
+      for(const k in data){
+        cityListEn.push({key:data[k].ID, text: data[k].NameEn});
+        cityListFr.push({key:data[k].ID, text: data[k].NameFr});
+      }
+
+      cityListEn.sort((a, b) => a.text.localeCompare(b.text));
+      cityListFr.sort((a, b) => a.text.localeCompare(b.text));
+
+      reacthandler.setState({cityListEn, cityListFr});
+    });
+
+    durationOperatorList.length = 0;
+
     durationOperatorList.push({ key: 0, text: strings.operatorExactly});
     durationOperatorList.push({ key: 1, text: strings.operatorGreaterThan});
     durationOperatorList.push({ key: 2, text: strings.operatorLessThan});
 
     reacthandler.setState({durationOperatorList});
-  }  
+  }
 
   public render(): React.ReactElement<IAdvancedSearchProps> {
     const {
@@ -147,14 +233,20 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
         
         <div style={{display: open ? 'block' : 'none'}}>
           <SearchForm 
-            departmentList={departmentList} 
-            classificationCodeList={classificationCodeList} 
-            classificationLevelList={classificationLevelList} 
-            durationList={durationList} 
+            departmentListEn={departmentListEn} 
+            departmentListFr={departmentListFr} 
+            classificationCodeListEn={classificationCodeListEn} 
+            classificationCodeListFr={classificationCodeListFr}
+            classificationLevelListEn={classificationLevelListEn} 
+            classificationLevelListFr={classificationLevelListFr}
+            durationListEn={durationListEn} 
+            durationListFr={durationListFr} 
             durationOperatorsList={durationOperatorList} 
-            languageRequirementList={languageRequirementList} 
+            languageRequirementListEn={languageRequirementListEn} 
+            languageRequirementListFr={languageRequirementListFr} 
             // languageComprehensionList={languageComprehensionList}
-            cityList={cityList} 
+            cityListEn={cityListEn} 
+            cityListFr={cityListFr}
           />
         </div>
     </section>

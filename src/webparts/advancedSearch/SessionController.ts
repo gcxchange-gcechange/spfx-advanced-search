@@ -2,7 +2,6 @@ import { Globals } from "./Globals";
 
 export class SessionController<T> {
     private storageKey: string;
-    private expirationTime: number = Globals.getCacheTime() * 60 * 1000;
 
     constructor(storageKey: string) {
         this.storageKey = storageKey;
@@ -18,7 +17,7 @@ export class SessionController<T> {
                 value: data,
                 timestamp: this.getTimestamp()
             };
-            sessionStorage.setItem(this.storageKey, JSON.stringify(item));
+            localStorage.setItem(this.storageKey, JSON.stringify(item));
         }
         catch (e) {
             console.error(e);
@@ -26,14 +25,14 @@ export class SessionController<T> {
     }
 
     async fetch(fetchFunction?: () => Promise<T>): Promise<T | undefined> {
-        const item = sessionStorage.getItem(this.storageKey);
+        const item = localStorage.getItem(this.storageKey);
 
         if (item) {
             const parsedItem = JSON.parse(item);
-            if (this.getTimestamp() - parsedItem.timestamp < this.expirationTime) {
+            if (this.getTimestamp() - parsedItem.timestamp < (Globals.getCacheTime() * 60 * 1000)) {
                 return parsedItem.value;
             } else {
-                sessionStorage.removeItem(this.storageKey);
+                localStorage.removeItem(this.storageKey);
             }
         }
 

@@ -90,9 +90,6 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
     
     classCodeCtrl.fetch(this.sp.web.lists.getByTitle('ClassificationCode').select('ID,NameEn,NameFr').items)
     .then((data) => {
-      if (Globals.isDebugMode())
-        console.log(data);
-
       classificationCodeListEn.length = 0;
       classificationCodeListFr.length = 0;
       
@@ -109,9 +106,6 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
 
     classLevelCtrl.fetch(this.sp.web.lists.getByTitle('ClassificationLevel').select('ID,NameEn,NameFr').items)
     .then((data) => {
-      if (Globals.isDebugMode())
-        console.log(data);
-
       classificationLevelListEn.length = 0;
       classificationLevelListFr.length = 0;
       
@@ -125,9 +119,6 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
 
     departmentCtrl.fetch(this.sp.web.lists.getByTitle('Department').select('ID,NameEn,NameFr').items)
     .then((data) => {
-      if (Globals.isDebugMode())
-        console.log(data);
-
       departmentListEn.length = 0;
       departmentListFr.length = 0;
       
@@ -144,9 +135,6 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
 
     durationCtrl.fetch(this.sp.web.lists.getByTitle('Duration').select('ID,NameEn,NameFr').items)
     .then((data) => {
-      if (Globals.isDebugMode())
-        console.log(data);
-
       durationListEn.length = 0;
       durationListFr.length = 0;
       
@@ -160,9 +148,6 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
 
     languageReqCtrl.fetch(this.sp.web.lists.getByTitle('LanguageRequirement').select('ID,NameEn,NameFr').items)
     .then((data) => {
-      if (Globals.isDebugMode())
-        console.log(data);
-
       languageRequirementListEn.length = 0;
       languageRequirementListFr.length = 0;
       
@@ -176,9 +161,6 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
 
     cityCtrl.fetch(this.sp.web.lists.getByTitle('City').select('ID,NameEn,NameFr').items)
     .then((data) => {
-      if (Globals.isDebugMode())
-        console.log(data);
-
       cityListEn.length = 0;
       cityListFr.length = 0;
       

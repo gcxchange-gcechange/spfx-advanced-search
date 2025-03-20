@@ -17,7 +17,13 @@ export class SessionController<T> {
                 value: data,
                 timestamp: this.getTimestamp()
             };
+
             localStorage.setItem(this.storageKey, JSON.stringify(item));
+
+            if (Globals.isDebugMode()) {
+                console.log(`Saved data to local storage with key: ${this.storageKey}`);
+                console.log(item);
+            }
         }
         catch (e) {
             console.error(e);
@@ -30,6 +36,12 @@ export class SessionController<T> {
         if (item) {
             const parsedItem = JSON.parse(item);
             if (this.getTimestamp() - parsedItem.timestamp < (Globals.getCacheTime() * 60 * 1000)) {
+
+                if (Globals.isDebugMode()) {
+                    console.log(`Retrieved data from local storage with key: ${this.storageKey}`);
+                    console.log(parsedItem);
+                }
+
                 return parsedItem.value;
             } else {
                 localStorage.removeItem(this.storageKey);

@@ -193,7 +193,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
 
     return (
       <section className={`${styles.advancedSearch} ${hasTeamsContext ? styles.teams : ''}`}>
-        <div style={{display: 'flex', alignItems: 'center', paddingBottom: '20px', gap: '10px'}}>
+        <div style={{display: 'flex', alignItems: 'center', paddingBottom: open ? '20px' : '0px', gap: '10px'}}>
           <h2 style={{fontSize: '20px', fontWeight: '600', display: 'inline-block'}}> 
             {this.strings.AdvancedSearch}
           </h2> 

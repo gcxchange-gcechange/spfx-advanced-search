@@ -39,6 +39,8 @@ define([], function() {
     "French": "French",
     "Reading": "Reading comprehension",
     "Written": "Written expression",
-    "Oral": "Oral expression"
+    "Oral": "Oral expression",
+    "ddPlaceholder": "--Choose one--",
+    "titlePlaceholder": "--Enter a job title--",
   }
 });

@@ -43,7 +43,7 @@ const SearchForm = (props: ISearchFormProps) => {
     const [classificationLevel, setClassificationLevel] = React.useState('');
     const [department, setDepartment] = React.useState('');
     const [duration, setDuration] = React.useState('');
-    const [durationQuantity, setDurationQuantity] = React.useState('');
+    const [durationQuantity, setDurationQuantity] = React.useState('1');
     const [durationOperator, setDurationOperator] = React.useState('1');
     const [languageRequirement, setLanguageRequirement] = React.useState('');
     //const [languageComprehension, setLanguageComprehension] = React.useState(comprehensionDefault);
@@ -95,7 +95,7 @@ const SearchForm = (props: ISearchFormProps) => {
         setClassificationLevel('');
         setDepartment('');
         setDuration('');
-        setDurationQuantity('');
+        setDurationQuantity('1');
         setDurationOperator('1');
         setLanguageRequirement('');
         //setLanguageComprehension(comprehensionDefault);
@@ -117,9 +117,12 @@ const SearchForm = (props: ISearchFormProps) => {
     //     }
     // };
 
+    const titleContainer = {
+        paddingBottom: '4px'
+    }
+
     const titleStyle = {
         fontWeight: '500', 
-        paddingBottom: '4px', 
         fontSize: '14px'
     }
 
@@ -153,7 +156,7 @@ const SearchForm = (props: ISearchFormProps) => {
     return (
         <>
         <Stack>
-            <Stack horizontal verticalAlign='center'>
+            <Stack horizontal verticalAlign='center' style={titleContainer}>
                 <label id='gcx-as-job-title-label'>
                     <b style={titleStyle}>
                         {strings.JobTitle}
@@ -166,9 +169,10 @@ const SearchForm = (props: ISearchFormProps) => {
                 styles={{fieldGroup: { borderColor: borderColor }}}  
                 onChange={(e) => setJobTitle(e.currentTarget.value)} 
                 value={jobTitle} 
+                placeholder={strings.titlePlaceholder}
             /><br />
 
-            <Stack horizontal verticalAlign='center'>
+            <Stack horizontal verticalAlign='center' style={titleContainer}>
                 <label id='gcx-as-department-label'>
                     <b style={titleStyle}>
                         {strings.Department}
@@ -189,6 +193,7 @@ const SearchForm = (props: ISearchFormProps) => {
                     }
                 }}
                 selectedKey={department ? parseInt(department, 10) : null} 
+                placeholder={strings.ddPlaceholder}
             /><br />
 
             <Stack horizontal verticalAlign='center' tokens={stackTokens}>
@@ -211,7 +216,8 @@ const SearchForm = (props: ISearchFormProps) => {
                             setClassificationCode('');
                         }
                     }}
-                    selectedKey={classificationCode ? parseInt(classificationCode, 10) : null} 
+                    selectedKey={classificationCode ? parseInt(classificationCode, 10) : null}
+                    placeholder={strings.ddPlaceholder} 
                 />
                 <label id='gcx-as-classification-level-label'>
                     <b style={titleStyleNoPadding}>
@@ -232,11 +238,12 @@ const SearchForm = (props: ISearchFormProps) => {
                             setClassificationLevel('');
                         }
                     }}
-                    selectedKey={classificationLevel ? parseInt(classificationLevel, 10) : null} 
+                    selectedKey={classificationLevel ? parseInt(classificationLevel, 10) : null}
+                    placeholder={strings.ddPlaceholder} 
                 />
             </Stack><br />
 
-            <Stack horizontal verticalAlign='center'>
+            <Stack horizontal verticalAlign='center' style={titleContainer}>
                 <label id='gcx-as-language-requirement-label'>
                     <b style={titleStyle}>
                         {strings.LanguageRequirement}
@@ -259,6 +266,7 @@ const SearchForm = (props: ISearchFormProps) => {
                     }
                 }}
                 selectedKey={languageRequirement ? parseInt(languageRequirement, 10) : null} 
+                placeholder={strings.ddPlaceholder}
             /><br />
 
             {/* { languageRequirement === '3' ? (
@@ -450,7 +458,7 @@ const SearchForm = (props: ISearchFormProps) => {
                 
             ) : null} */}
             
-            <Stack horizontal verticalAlign='center'>
+            <Stack horizontal verticalAlign='center' style={titleContainer}>
                 <label id='gcx-as-location-label'>
                     <b style={titleStyle}>
                         {strings.Location}
@@ -471,9 +479,10 @@ const SearchForm = (props: ISearchFormProps) => {
                     }
                 }} 
                 selectedKey={city ? parseInt(city, 10) : null} 
+                placeholder={strings.ddPlaceholder}
             /><br />
 
-            <Stack horizontal verticalAlign='center'>
+            <Stack horizontal verticalAlign='center' style={titleContainer}>
                 <label id='gcx-as-duration-label'>
                     <b style={titleStyle}>
                         {strings.Duration}
@@ -497,6 +506,7 @@ const SearchForm = (props: ISearchFormProps) => {
                         }
                     }} 
                     selectedKey={durationOperator ? parseInt(durationOperator, 10) : null} 
+                    placeholder={strings.ddPlaceholder}
                 />
                 <label id='gcx-as-duration-quantity-label'>
                     <b style={titleStyle}>
@@ -533,11 +543,12 @@ const SearchForm = (props: ISearchFormProps) => {
                         }
                     }} 
                     selectedKey={duration ? parseInt(duration, 10) : null} 
+                    placeholder={strings.ddPlaceholder}
                 />
             </Stack>
             <br />
 
-            <Stack horizontal verticalAlign='center' horizontalAlign="end" tokens={stackTokens}>
+            <Stack horizontal verticalAlign='center' horizontalAlign="start" tokens={stackTokens}>
                 <DefaultButton 
                     id='advancedSearch-Clear'
                     aria-label={strings.btnClearAria}

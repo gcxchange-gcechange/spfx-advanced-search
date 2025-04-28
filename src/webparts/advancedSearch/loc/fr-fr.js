@@ -39,6 +39,8 @@ define([], function() {
       "French": "Français",
       "Reading": "Compréhension écrite",
       "Written": "Expression écrite",
-      "Oral": "Expression orale"
+      "Oral": "Expression orale",
+      "ddPlaceholder": "--Choisissez-en un--",
+      "titlePlaceholder": "--Entrez un titre de poste--",
     }
   });

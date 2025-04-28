@@ -39,6 +39,9 @@ declare interface IAdvancedSearchWebPartStrings {
   Reading: string;
   Written: string;
   Oral: string;
+  ddPlaceholder: string;
+  titlePlaceholder: string;
+  durationQuantPlaceholder: string;
 }
 
 declare module 'AdvancedSearchWebPartStrings' {

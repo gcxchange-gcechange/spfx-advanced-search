@@ -31,3 +31,30 @@
     }
   }
 }
+
+.doubleField {
+  gap: 10px;
+
+  >div {
+    flex: 1 1 0%;
+
+    label {
+      padding-bottom: 4px;
+    }
+  }
+}
+
+.controls {
+  padding-top: 5px;
+}
+
+@media (max-width: 650px) {
+  .doubleField {
+    flex-flow: column;
+    align-items: baseline;
+
+    >div {
+      width: 100%;
+    }
+  }
+}

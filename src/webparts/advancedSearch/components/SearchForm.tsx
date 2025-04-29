@@ -194,7 +194,7 @@ const SearchForm = (props: ISearchFormProps) => {
                 />
             </div>
             <div>
-                <Stack horizontal verticalAlign='center' className={styles.doubleField}>
+                <Stack horizontal verticalAlign='center' className={styles.multiField}>
 
                     <Stack verticalAlign='center'>
                         <label id='gcx-as-classification-code-label'>
@@ -487,7 +487,7 @@ const SearchForm = (props: ISearchFormProps) => {
                 />
             </div>
             <div>
-                <Stack horizontal verticalAlign='center' className={styles.doubleField}>
+                <Stack horizontal verticalAlign='center' className={styles.multiField}>
                     <Stack verticalAlign='center'>
                         <label id='gcx-as-duration-label'>
                             <b style={titleStyle}>
@@ -528,32 +528,30 @@ const SearchForm = (props: ISearchFormProps) => {
                             value={durationQuantity} 
                         />
                     </Stack>
+                    <Stack verticalAlign='center'>
+                        <label id='gcx-as-duration-units-label' >
+                            <b style={titleStyle}>
+                                {strings.durationUnit}
+                            </b>
+                        </label>
+                        <Dropdown 
+                            id='ddDuration' 
+                            aria-labelledby='gcx-as-duration-units-label'
+                            styles={{title: { borderColor: borderColor }}} 
+                            options={Globals.getLanguage() === Language.French ? props.durationListFr : props.durationListEn} 
+                            onChange={(e, option) => { 
+                                if (option) {
+                                    setDuration(option.key.toString());
+                                }
+                                else {
+                                    setDuration('');
+                                }
+                            }} 
+                            selectedKey={duration ? parseInt(duration, 10) : null} 
+                            placeholder={strings.ddPlaceholder}
+                        />
+                    </Stack>
                 </Stack>
-            </div>
-            <div>
-                <Stack horizontal verticalAlign='center' style={titleContainer}>
-                    <label id='gcx-as-duration-units-label' >
-                        <b style={titleStyle}>
-                            {strings.durationUnit}
-                        </b>
-                    </label>
-                </Stack>
-                <Dropdown 
-                    id='ddDuration' 
-                    aria-labelledby='gcx-as-duration-units-label'
-                    styles={{title: { borderColor: borderColor }}} 
-                    options={Globals.getLanguage() === Language.French ? props.durationListFr : props.durationListEn} 
-                    onChange={(e, option) => { 
-                        if (option) {
-                            setDuration(option.key.toString());
-                        }
-                        else {
-                            setDuration('');
-                        }
-                    }} 
-                    selectedKey={duration ? parseInt(duration, 10) : null} 
-                    placeholder={strings.ddPlaceholder}
-                />
             </div>
             <div className={styles.controls}>
                 <Stack horizontal verticalAlign='center' horizontalAlign="start" tokens={stackTokens}>

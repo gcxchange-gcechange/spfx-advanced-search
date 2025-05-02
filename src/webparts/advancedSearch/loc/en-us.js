@@ -18,7 +18,7 @@ define([], function() {
     "JobTitle": "Job Title",
     "Department": "Department",
     "ClassificationCode": "Classification Code",
-    "Level": "Level",
+    "Level": "Classification Level",
     "LanguageRequirement": "Language Requirement",
     "LanguageComprehension": "Language Comprehension",
     "Location": "City",
@@ -33,12 +33,14 @@ define([], function() {
     "operatorLessThan": "Less or equal to",
     "operatorGreaterThan": "Greater or equal to",
     "operatorExactly": "Exactly",
-    "durationAmount" : "Amount",
-    "durationUnit": "Unit",
+    "durationAmount" : "Duration Amount",
+    "durationUnit": "Duration Unit",
     "English": "English",
     "French": "French",
     "Reading": "Reading comprehension",
     "Written": "Written expression",
-    "Oral": "Oral expression"
+    "Oral": "Oral expression",
+    "ddPlaceholder": "--Choose one--",
+    "titlePlaceholder": "--Enter a job title--",
   }
 });

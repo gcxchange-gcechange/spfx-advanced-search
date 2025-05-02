@@ -193,10 +193,10 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
 
     return (
       <section className={`${styles.advancedSearch} ${hasTeamsContext ? styles.teams : ''}`}>
-        <div style={{display: 'flex', alignItems: 'center', paddingBottom: '20px', gap: '10px'}}>
-          <div style={{fontSize: '20px', fontWeight: '600', display: 'inline-block'}}>
+        <div style={{display: 'flex', alignItems: 'center', paddingBottom: open ? '20px' : '0px', gap: '10px'}}>
+          <h2 style={{margin: 0, fontSize: '20px', fontWeight: '600', display: 'inline-block'}}> 
             {this.strings.AdvancedSearch}
-          </div>
+          </h2> 
           <div style={{float: 'right'}}>
             <DefaultButton 
               style={this.buttonStyle} 

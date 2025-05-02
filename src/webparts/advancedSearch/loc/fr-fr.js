@@ -18,7 +18,7 @@ define([], function() {
       "JobTitle": "Titre d'emploi",
       "Department": "Département",
       "ClassificationCode": "Code de classement",
-      "Level": "Niveau",
+      "Level": "Niveau de classification",
       "LanguageRequirement": "Exigence linguistique",
       "LanguageComprehension": "Compréhension du langage",
       "Location": "Ville",
@@ -33,12 +33,14 @@ define([], function() {
       "operatorLessThan": "Inférieur ou égal à",
       "operatorGreaterThan": "Supérieur ou égal à",
       "operatorExactly": "Exactement",
-      "durationAmount" : "Quantité",
-      "durationUnit": "Unité",
+      "durationAmount" : "Durée Montant",
+      "durationUnit": "Unité de durée",
       "English": "Anglaise",
       "French": "Français",
       "Reading": "Compréhension écrite",
       "Written": "Expression écrite",
-      "Oral": "Expression orale"
+      "Oral": "Expression orale",
+      "ddPlaceholder": "--Choisissez-en un--",
+      "titlePlaceholder": "--Entrez un titre de poste--",
     }
   });

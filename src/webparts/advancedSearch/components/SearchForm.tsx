@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Stack, TextField, PrimaryButton, DefaultButton, IStackTokens, Dropdown, IDropdownOption, IStackStyles  } from "@fluentui/react";
+import { Stack, TextField, PrimaryButton, DefaultButton, IStackTokens, Dropdown, IDropdownOption  } from "@fluentui/react";
 import * as React from "react";
 import { Globals, Language } from "../Globals";
+import styles from "./AdvancedSearch.module.scss";
 
 export interface ISearchFormProps {
     classificationCodeListEn: IDropdownOption[];
@@ -43,7 +44,7 @@ const SearchForm = (props: ISearchFormProps) => {
     const [classificationLevel, setClassificationLevel] = React.useState('');
     const [department, setDepartment] = React.useState('');
     const [duration, setDuration] = React.useState('');
-    const [durationQuantity, setDurationQuantity] = React.useState('');
+    const [durationQuantity, setDurationQuantity] = React.useState('1');
     const [durationOperator, setDurationOperator] = React.useState('1');
     const [languageRequirement, setLanguageRequirement] = React.useState('');
     //const [languageComprehension, setLanguageComprehension] = React.useState(comprehensionDefault);
@@ -95,7 +96,7 @@ const SearchForm = (props: ISearchFormProps) => {
         setClassificationLevel('');
         setDepartment('');
         setDuration('');
-        setDurationQuantity('');
+        setDurationQuantity('1');
         setDurationOperator('1');
         setLanguageRequirement('');
         //setLanguageComprehension(comprehensionDefault);
@@ -117,9 +118,12 @@ const SearchForm = (props: ISearchFormProps) => {
     //     }
     // };
 
+    const titleContainer = {
+        paddingBottom: '4px'
+    }
+
     const titleStyle = {
         fontWeight: '500', 
-        paddingBottom: '4px', 
         fontSize: '14px'
     }
 
@@ -130,12 +134,6 @@ const SearchForm = (props: ISearchFormProps) => {
 
     const borderColor: string = '#c2c2c2';
     const stackTokens: IStackTokens = { childrenGap: 20 };
-    const stackTokensDuration: IStackTokens = { childrenGap: 15 };
-    const stackStyles: IStackStyles = {
-        root: {
-            width: '100%',
-        },
-    };
     // const compStackStyle= {
     //     root: {
     //         width: '100%',
@@ -152,114 +150,128 @@ const SearchForm = (props: ISearchFormProps) => {
 
     return (
         <>
-        <Stack>
-            <Stack horizontal verticalAlign='center'>
-                <label id='gcx-as-job-title-label'>
-                    <b style={titleStyle}>
-                        {strings.JobTitle}
-                    </b>
-                </label>
-            </Stack>
-            <TextField 
-                id='txtJobTitle' 
-                aria-labelledby='gcx-as-job-title-label'
-                styles={{fieldGroup: { borderColor: borderColor }}}  
-                onChange={(e) => setJobTitle(e.currentTarget.value)} 
-                value={jobTitle} 
-            /><br />
-
-            <Stack horizontal verticalAlign='center'>
-                <label id='gcx-as-department-label'>
-                    <b style={titleStyle}>
-                        {strings.Department}
-                    </b>
-                </label>
-            </Stack>
-            <Dropdown 
-                id='ddDepartment' 
-                aria-labelledby='gcx-as-department-label'
-                styles={{title: { borderColor: borderColor }}} 
-                options={Globals.getLanguage() === Language.French ? props.departmentListFr : props.departmentListEn} 
-                onChange={(e, option) => { 
-                    if (option) {
-                        setDepartment(option.key.toString());
-                    }
-                    else {
-                        setDepartment('');
-                    }
-                }}
-                selectedKey={department ? parseInt(department, 10) : null} 
-            /><br />
-
-            <Stack horizontal verticalAlign='center' tokens={stackTokens}>
-                <label id='gcx-as-classification-code-label'>
-                    <b style={titleStyleNoPadding}>
-                        {strings.ClassificationCode}:
-                    </b>
-                </label>
+        <Stack style={{gap: '10px'}}>
+            <div>
+                <Stack horizontal verticalAlign='center' style={titleContainer}>
+                    <label id='gcx-as-job-title-label'>
+                        <b style={titleStyle}>
+                            {strings.JobTitle}
+                        </b>
+                    </label>
+                </Stack>
+                <TextField 
+                    id='txtJobTitle' 
+                    aria-labelledby='gcx-as-job-title-label'
+                    styles={{fieldGroup: { borderColor: borderColor }}}  
+                    onChange={(e) => setJobTitle(e.currentTarget.value)} 
+                    value={jobTitle} 
+                    placeholder={strings.titlePlaceholder}
+                />
+            </div>
+            <div>
+                <Stack horizontal verticalAlign='center' style={titleContainer} >
+                    <label id='gcx-as-department-label'>
+                        <b style={titleStyle}>
+                            {strings.Department}
+                        </b>
+                    </label>
+                </Stack>
                 <Dropdown 
-                    id='ddClassificationCode' 
-                    aria-labelledby='gcx-as-classification-code-label'
+                    id='ddDepartment' 
+                    aria-labelledby='gcx-as-department-label'
                     styles={{title: { borderColor: borderColor }}} 
-                    style={{minWidth: '90px'}}
-                    options={Globals.getLanguage() === Language.French ? props.classificationCodeListFr : props.classificationCodeListEn} 
+                    options={Globals.getLanguage() === Language.French ? props.departmentListFr : props.departmentListEn} 
                     onChange={(e, option) => { 
                         if (option) {
-                            setClassificationCode(option.key.toString());
+                            setDepartment(option.key.toString());
                         }
                         else {
-                            setClassificationCode('');
+                            setDepartment('');
                         }
                     }}
-                    selectedKey={classificationCode ? parseInt(classificationCode, 10) : null} 
+                    selectedKey={department ? parseInt(department, 10) : null} 
+                    placeholder={strings.ddPlaceholder}
                 />
-                <label id='gcx-as-classification-level-label'>
-                    <b style={titleStyleNoPadding}>
-                        {strings.Level}:
-                    </b>
-                </label>
+            </div>
+            <div>
+                <Stack horizontal verticalAlign='center' className={styles.multiField}>
+
+                    <Stack verticalAlign='center'>
+                        <label id='gcx-as-classification-code-label'>
+                            <b style={titleStyleNoPadding}>
+                                {strings.ClassificationCode}
+                            </b>
+                        </label>
+                        <Dropdown 
+                            id='ddClassificationCode' 
+                            aria-labelledby='gcx-as-classification-code-label'
+                            styles={{title: { borderColor: borderColor }}} 
+                            options={Globals.getLanguage() === Language.French ? props.classificationCodeListFr : props.classificationCodeListEn} 
+                            onChange={(e, option) => { 
+                                if (option) {
+                                    setClassificationCode(option.key.toString());
+                                }
+                                else {
+                                    setClassificationCode('');
+                                }
+                            }}
+                            selectedKey={classificationCode ? parseInt(classificationCode, 10) : null}
+                            placeholder={strings.ddPlaceholder} 
+                        />
+                    </Stack>
+                    <Stack verticalAlign='center'>
+                        <label id='gcx-as-classification-level-label'>
+                            <b style={titleStyleNoPadding}>
+                                {strings.Level}
+                            </b>
+                        </label>
+                        <Dropdown 
+                            id='ddClassificationLevel' 
+                            aria-labelledby='gcx-as-classification-level-label'
+                            styles={{title: { borderColor: borderColor }}} 
+                            style={{minWidth: '50px'}}
+                            options={Globals.getLanguage() === Language.French ? props.classificationLevelListFr : props.classificationLevelListEn} 
+                            onChange={(e, option) => { 
+                                if (option) {
+                                    setClassificationLevel(option.key.toString());
+                                }
+                                else {
+                                    setClassificationLevel('');
+                                }
+                            }}
+                            selectedKey={classificationLevel ? parseInt(classificationLevel, 10) : null}
+                            placeholder={strings.ddPlaceholder} 
+                        />
+                    </Stack>
+                </Stack>
+            </div>
+            <div>
+                <Stack horizontal verticalAlign='center' style={titleContainer}>
+                    <label id='gcx-as-language-requirement-label'>
+                        <b style={titleStyle}>
+                            {strings.LanguageRequirement}
+                        </b>
+                    </label>
+                </Stack>
                 <Dropdown 
-                    id='ddClassificationLevel' 
-                    aria-labelledby='gcx-as-classification-level-label'
+                    id='ddLanguageRequirement' 
+                    aria-labelledby='gcx-as-language-requirement-label'
                     styles={{title: { borderColor: borderColor }}} 
-                    style={{minWidth: '50px'}}
-                    options={Globals.getLanguage() === Language.French ? props.classificationLevelListFr : props.classificationLevelListEn} 
+                    options={Globals.getLanguage() === Language.French ? props.languageRequirementListFr : props.languageRequirementListEn} 
                     onChange={(e, option) => { 
                         if (option) {
-                            setClassificationLevel(option.key.toString());
+                            setLanguageRequirement(option.key.toString());
+                            // if (languageRequirement !== '3')
+                            //     setLanguageComprehension(comprehensionDefault);
                         }
                         else {
-                            setClassificationLevel('');
+                            setLanguageRequirement('');
                         }
                     }}
-                    selectedKey={classificationLevel ? parseInt(classificationLevel, 10) : null} 
+                    selectedKey={languageRequirement ? parseInt(languageRequirement, 10) : null} 
+                    placeholder={strings.ddPlaceholder}
                 />
-            </Stack><br />
-
-            <Stack horizontal verticalAlign='center'>
-                <label id='gcx-as-language-requirement-label'>
-                    <b style={titleStyle}>
-                        {strings.LanguageRequirement}
-                    </b>
-                </label>
-            </Stack>
-            <Dropdown 
-                id='ddLanguageRequirement' 
-                aria-labelledby='gcx-as-language-requirement-label'
-                styles={{title: { borderColor: borderColor }}} 
-                options={Globals.getLanguage() === Language.French ? props.languageRequirementListFr : props.languageRequirementListEn} 
-                onChange={(e, option) => { 
-                    if (option) {
-                        setLanguageRequirement(option.key.toString());
-                        // if (languageRequirement !== '3')
-                        //     setLanguageComprehension(comprehensionDefault);
-                    }
-                    else {
-                        setLanguageRequirement('');
-                    }
-                }}
-                selectedKey={languageRequirement ? parseInt(languageRequirement, 10) : null} 
-            /><br />
+            </div>
 
             {/* { languageRequirement === '3' ? (
                 <div>
@@ -449,112 +461,118 @@ const SearchForm = (props: ISearchFormProps) => {
                 </div>
                 
             ) : null} */}
-            
-            <Stack horizontal verticalAlign='center'>
-                <label id='gcx-as-location-label'>
-                    <b style={titleStyle}>
-                        {strings.Location}
-                    </b>
-                </label>
-            </Stack>
-            <Dropdown 
-                id='ddRegion' 
-                aria-labelledby='gcx-as-location-label'
-                styles={{title: { borderColor: borderColor }}} 
-                options={Globals.getLanguage() === Language.French ? props.cityListFr : props.cityListEn} 
-                onChange={(e, option) => { 
-                    if (option) {
-                        setCity(option.key.toString());
-                    }
-                    else {
-                        setCity('');
-                    }
-                }} 
-                selectedKey={city ? parseInt(city, 10) : null} 
-            /><br />
-
-            <Stack horizontal verticalAlign='center'>
-                <label id='gcx-as-duration-label'>
-                    <b style={titleStyle}>
-                        {strings.Duration}
-                    </b>
-                </label>
-            </Stack>
-
-            <Stack horizontal verticalAlign='center' styles={stackStyles} tokens={stackTokensDuration}>
+            <div>
+                <Stack horizontal verticalAlign='center' style={titleContainer}>
+                    <label id='gcx-as-location-label'>
+                        <b style={titleStyle}>
+                            {strings.Location}
+                        </b>
+                    </label>
+                </Stack>
                 <Dropdown 
-                    id='ddDurationOperator' 
-                    aria-labelledby='gcx-as-duration-label'
+                    id='ddRegion' 
+                    aria-labelledby='gcx-as-location-label'
                     styles={{title: { borderColor: borderColor }}} 
-                    style={{minWidth: '150px'}}
-                    options={props.durationOperatorsList} 
+                    options={Globals.getLanguage() === Language.French ? props.cityListFr : props.cityListEn} 
                     onChange={(e, option) => { 
                         if (option) {
-                            setDurationOperator(option.key.toString());
+                            setCity(option.key.toString());
                         }
                         else {
-                            setDurationOperator('');
+                            setCity('');
                         }
                     }} 
-                    selectedKey={durationOperator ? parseInt(durationOperator, 10) : null} 
+                    selectedKey={city ? parseInt(city, 10) : null} 
+                    placeholder={strings.ddPlaceholder}
                 />
-                <label id='gcx-as-duration-quantity-label'>
-                    <b style={titleStyle}>
-                        {strings.durationAmount}
-                    </b>
-                </label>
-                <TextField 
-                    type='number'
-                    min={1}
-                    max={12}
-                    id='txtDurationQuantity' 
-                    aria-labelledby='gcx-as-duration-quantity-label'
-                    styles={{fieldGroup: { borderColor: borderColor }}}  
-                    onChange={(e) => setDurationQuantity(e.currentTarget.value)} 
-                    value={durationQuantity} 
-                />
-                <label id='gcx-as-duration-units-label'>
-                    <b style={titleStyle}>
-                        {strings.durationUnit}
-                    </b>
-                </label>
-                <Dropdown 
-                    id='ddDuration' 
-                    aria-labelledby='gcx-as-duration-units-label'
-                    styles={{title: { borderColor: borderColor }}} 
-                    style={{minWidth: '100px'}}
-                    options={Globals.getLanguage() === Language.French ? props.durationListFr : props.durationListEn} 
-                    onChange={(e, option) => { 
-                        if (option) {
-                            setDuration(option.key.toString());
-                        }
-                        else {
-                            setDuration('');
-                        }
-                    }} 
-                    selectedKey={duration ? parseInt(duration, 10) : null} 
-                />
-            </Stack>
-            <br />
+            </div>
+            <div>
+                <Stack horizontal verticalAlign='center' className={styles.multiField}>
+                    <Stack verticalAlign='center'>
+                        <label id='gcx-as-duration-label'>
+                            <b style={titleStyle}>
+                                {strings.Duration}
+                            </b>
+                        </label>
+                        <Dropdown 
+                            id='ddDurationOperator' 
+                            aria-labelledby='gcx-as-duration-label'
+                            styles={{title: { borderColor: borderColor }}} 
+                            options={props.durationOperatorsList} 
+                            onChange={(e, option) => { 
+                                if (option) {
+                                    setDurationOperator(option.key.toString());
+                                }
+                                else {
+                                    setDurationOperator('');
+                                }
+                            }} 
+                            selectedKey={durationOperator ? parseInt(durationOperator, 10) : null} 
+                            placeholder={strings.ddPlaceholder}
+                        />
+                    </Stack>
+                    <Stack verticalAlign='center'>
+                        <label id='gcx-as-duration-quantity-label'>
+                            <b style={titleStyle}>
+                                {strings.durationAmount}
+                            </b>
+                        </label>
+                        <TextField 
+                            type='number'
+                            min={1}
+                            max={12}
+                            id='txtDurationQuantity' 
+                            aria-labelledby='gcx-as-duration-quantity-label'
+                            styles={{fieldGroup: { borderColor: borderColor }}}  
+                            onChange={(e) => setDurationQuantity(e.currentTarget.value)} 
+                            value={durationQuantity} 
+                        />
+                    </Stack>
+                    <Stack verticalAlign='center'>
+                        <label id='gcx-as-duration-units-label' >
+                            <b style={titleStyle}>
+                                {strings.durationUnit}
+                            </b>
+                        </label>
+                        <Dropdown 
+                            id='ddDuration' 
+                            aria-labelledby='gcx-as-duration-units-label'
+                            styles={{title: { borderColor: borderColor }}} 
+                            options={Globals.getLanguage() === Language.French ? props.durationListFr : props.durationListEn} 
+                            onChange={(e, option) => { 
+                                if (option) {
+                                    setDuration(option.key.toString());
+                                }
+                                else {
+                                    setDuration('');
+                                }
+                            }} 
+                            selectedKey={duration ? parseInt(duration, 10) : null} 
+                            placeholder={strings.ddPlaceholder}
+                        />
+                    </Stack>
+                </Stack>
+            </div>
+            <div className={styles.controls}>
+                <Stack horizontal verticalAlign='center' horizontalAlign="start" tokens={stackTokens}>
+                    <DefaultButton 
+                        id='advancedSearch-Clear'
+                        aria-label={strings.btnClearAria}
+                        onClick={() => {
+                            ClearValues();
+                        }}
+                    >
+                        {strings.Clear}
+                    </DefaultButton>
 
-            <Stack horizontal verticalAlign='center' horizontalAlign="end" tokens={stackTokens}>
-                <DefaultButton 
-                    id='advancedSearch-Clear'
-                    aria-label={strings.btnClearAria}
-                    onClick={() => {
-                        ClearValues();
-                    }}
-                >
-                    {strings.Clear}
-                </DefaultButton>
-
-                <PrimaryButton 
-                    id='advancedSearch-Search'
-                    aria-label={strings.btnSearchAria}
-                >
-                    {strings.Search}
-                </PrimaryButton>
-            </Stack>
+                    <PrimaryButton 
+                        id='advancedSearch-Search'
+                        aria-label={strings.btnSearchAria}
+                    >
+                        {strings.Search}
+                    </PrimaryButton>
+                </Stack>
+            </div>
         </Stack>
         </>
     );

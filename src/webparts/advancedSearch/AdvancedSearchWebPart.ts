@@ -13,6 +13,7 @@ import * as strings from 'AdvancedSearchWebPartStrings';
 import AdvancedSearch from './components/AdvancedSearch';
 import { IAdvancedSearchProps } from './components/IAdvancedSearchProps';
 import { Globals, Language } from './Globals';
+import { AdvancedSearchSessionKeys } from './components/SearchForm';
 
 export interface IAdvancedSearchWebPartProps {
   language: string;
@@ -102,6 +103,8 @@ export default class AdvancedSearchWebPart extends BaseClientSideWebPart<IAdvanc
   }
 
   protected onDispose(): void {
+    sessionStorage.removeItem(AdvancedSearchSessionKeys.Initialized);
+    
     ReactDom.unmountComponentAtNode(this.domElement);
   }
 

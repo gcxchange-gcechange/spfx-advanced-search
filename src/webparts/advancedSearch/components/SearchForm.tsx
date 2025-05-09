@@ -22,17 +22,18 @@ export interface ISearchFormProps {
 }
 
 export enum AdvancedSearchSessionKeys {
-    JobTitle = 'gcx-cm-jobTitle',
-    ClassificationCode = 'gcx-cm-classificationCode',
-    ClassificationLevel = 'gcx-cm-classificationLevel',
-    Department = 'gcx-cm-department',
-    Duration = 'gcx-cm-duration',
-    DurationQuantity = 'gcx-cm-durationQuantity',
-    DurationOperator = 'gcx-cm-durationOperator',
-    LanguageRequirement = 'gcx-cm-languageRequirement',
-    //LanguageComprehension = 'gcx-cm-languageComprehension',
-    City = 'gcx-cm-city'
-}
+    Initialized = 'gcx-cm-adsearch-init',
+    JobTitle = 'gcx-cm-adsearch-jobTitle',
+    ClassificationCode = 'gcx-cm-adsearch-classificationCode',
+    ClassificationLevel = 'gcx-cm-adsearch-classificationLevel',
+    Department = 'gcx-cm-adsearch-department',
+    Duration = 'gcx-cm-adsearch-duration',
+    DurationQuantity = 'gcx-cm-adsearch-durationQuantity',
+    DurationOperator = 'gcx-cm-adsearch-durationOperator',
+    LanguageRequirement = 'gcx-cm-adsearch-languageRequirement',
+    //LanguageComprehension = 'gcx-cm-adsearch-languageComprehension',
+    City = 'gcx-cm-adsearch-city'
+  }
 
 const SearchForm = (props: ISearchFormProps) => {
     const strings = Globals.getStrings();
@@ -104,6 +105,17 @@ const SearchForm = (props: ISearchFormProps) => {
 
         ClearSessionKeys();
     };
+
+    React.useEffect(() => {
+        sessionStorage.setItem(AdvancedSearchSessionKeys.Initialized, 'true');
+
+        if (Globals.isDebugMode())
+            console.log(`${AdvancedSearchSessionKeys.Initialized}: ${sessionStorage.getItem(AdvancedSearchSessionKeys.Initialized)}`);
+
+        return () => {
+            sessionStorage.removeItem(AdvancedSearchSessionKeys.Initialized);
+        };
+    }, []);
 
     React.useEffect(() => {
         SetSessionKeys();

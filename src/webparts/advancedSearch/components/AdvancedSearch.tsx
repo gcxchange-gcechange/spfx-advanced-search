@@ -88,7 +88,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
     this.sp = getSP(this.props.context);
     const strings = Globals.getStrings();
     
-    classCodeCtrl.fetch(this.sp.web.lists.getByTitle('ClassificationCode').select('ID,NameEn,NameFr').items)
+    classCodeCtrl.fetch(this.sp.web.lists.getByTitle('ClassificationCode').items.select('ID,NameEn,NameFr').top(5000))
     .then((data) => {
       classificationCodeListEn.length = 0;
       classificationCodeListFr.length = 0;
@@ -104,7 +104,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
       reacthandler.setState({classificationCodeListEn, classificationCodeListFr});
     });
 
-    classLevelCtrl.fetch(this.sp.web.lists.getByTitle('ClassificationLevel').select('ID,NameEn,NameFr').items)
+    classLevelCtrl.fetch(this.sp.web.lists.getByTitle('ClassificationLevel').items.select('ID,NameEn,NameFr').top(5000))
     .then((data) => {
       classificationLevelListEn.length = 0;
       classificationLevelListFr.length = 0;
@@ -117,7 +117,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
       reacthandler.setState({classificationLevelListEn, classificationLevelListFr});
     });
 
-    departmentCtrl.fetch(this.sp.web.lists.getByTitle('Department').select('ID,NameEn,NameFr').items)
+    departmentCtrl.fetch(this.sp.web.lists.getByTitle('Department').items.select('ID,NameEn,NameFr').top(5000))
     .then((data) => {
       departmentListEn.length = 0;
       departmentListFr.length = 0;
@@ -133,7 +133,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
       reacthandler.setState({departmentListEn, departmentListFr});
     });
 
-    durationCtrl.fetch(this.sp.web.lists.getByTitle('Duration').select('ID,NameEn,NameFr').items)
+    durationCtrl.fetch(this.sp.web.lists.getByTitle('Duration').items.select('ID,NameEn,NameFr').top(5000))
     .then((data) => {
       durationListEn.length = 0;
       durationListFr.length = 0;
@@ -146,7 +146,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
       reacthandler.setState({durationListEn, durationListFr});
     });
 
-    languageReqCtrl.fetch(this.sp.web.lists.getByTitle('LanguageRequirement').select('ID,NameEn,NameFr').items)
+    languageReqCtrl.fetch(this.sp.web.lists.getByTitle('LanguageRequirement').items.select('ID,NameEn,NameFr').top(5000))
     .then((data) => {
       languageRequirementListEn.length = 0;
       languageRequirementListFr.length = 0;
@@ -159,7 +159,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
       reacthandler.setState({languageRequirementListEn, languageRequirementListFr});
     });
 
-    cityCtrl.fetch(this.sp.web.lists.getByTitle('City').select('ID,NameEn,NameFr').items)
+    cityCtrl.fetch(this.sp.web.lists.getByTitle('City').items.select('ID,NameEn,NameFr').top(5000))
     .then((data) => {
       cityListEn.length = 0;
       cityListFr.length = 0;

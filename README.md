@@ -14,7 +14,7 @@
 
 ## API permission
 
-Office 365 SharePoint Online - TermStore.Read.All
+None
 
 ## Version
 

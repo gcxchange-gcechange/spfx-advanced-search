@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Stack, TextField, PrimaryButton, DefaultButton, IStackTokens, Dropdown, IDropdownOption  } from "@fluentui/react";
+import { Stack, TextField, PrimaryButton, DefaultButton, IStackTokens, Dropdown, IDropdownOption, IDropdownStyles, ICalloutContentStyles  } from "@fluentui/react";
 import * as React from "react";
 import { Globals, Language } from "../Globals";
 import styles from "./AdvancedSearch.module.scss";
@@ -154,6 +154,22 @@ const SearchForm = (props: ISearchFormProps) => {
     //     }
     // }
 
+    const calloutStyles: Partial<ICalloutContentStyles> = {
+        calloutMain: {
+            overflow: 'auto'
+        },
+    };
+
+    const dropdownStyles: Partial<IDropdownStyles> = {
+        dropdownItem: {
+            width: 'fit-content',
+            minWidth: '100%'
+        },
+        dropdownItemsWrapper: {
+            width: 'max-content'
+        }
+    };
+
     if (Globals.isOpen()){
         SetSessionKeys();
     } else {
@@ -191,7 +207,10 @@ const SearchForm = (props: ISearchFormProps) => {
                 <Dropdown 
                     id='ddDepartment' 
                     aria-labelledby='gcx-as-department-label'
-                    styles={{title: { borderColor: borderColor }}} 
+                    styles={{
+                        ...dropdownStyles,
+                        title: { borderColor: borderColor }
+                    }}
                     options={Globals.getLanguage() === Language.French ? props.departmentListFr : props.departmentListEn} 
                     onChange={(e, option) => { 
                         if (option) {
@@ -203,6 +222,7 @@ const SearchForm = (props: ISearchFormProps) => {
                     }}
                     selectedKey={department ? parseInt(department, 10) : null} 
                     placeholder={strings.ddPlaceholder}
+                    calloutProps={{styles: calloutStyles}}
                 />
             </div>
             <div>
@@ -217,7 +237,10 @@ const SearchForm = (props: ISearchFormProps) => {
                         <Dropdown 
                             id='ddClassificationCode' 
                             aria-labelledby='gcx-as-classification-code-label'
-                            styles={{title: { borderColor: borderColor }}} 
+                            styles={{
+                                ...dropdownStyles,
+                                title: { borderColor: borderColor }
+                            }}
                             options={Globals.getLanguage() === Language.French ? props.classificationCodeListFr : props.classificationCodeListEn} 
                             onChange={(e, option) => { 
                                 if (option) {
@@ -229,6 +252,7 @@ const SearchForm = (props: ISearchFormProps) => {
                             }}
                             selectedKey={classificationCode ? parseInt(classificationCode, 10) : null}
                             placeholder={strings.ddPlaceholder} 
+                            calloutProps={{styles: calloutStyles}}
                         />
                     </Stack>
                     <Stack verticalAlign='center'>
@@ -240,7 +264,10 @@ const SearchForm = (props: ISearchFormProps) => {
                         <Dropdown 
                             id='ddClassificationLevel' 
                             aria-labelledby='gcx-as-classification-level-label'
-                            styles={{title: { borderColor: borderColor }}} 
+                            styles={{
+                                ...dropdownStyles,
+                                title: { borderColor: borderColor }
+                            }}
                             style={{minWidth: '50px'}}
                             options={Globals.getLanguage() === Language.French ? props.classificationLevelListFr : props.classificationLevelListEn} 
                             onChange={(e, option) => { 
@@ -253,6 +280,7 @@ const SearchForm = (props: ISearchFormProps) => {
                             }}
                             selectedKey={classificationLevel ? parseInt(classificationLevel, 10) : null}
                             placeholder={strings.ddPlaceholder} 
+                            calloutProps={{styles: calloutStyles}}
                         />
                     </Stack>
                 </Stack>
@@ -268,7 +296,10 @@ const SearchForm = (props: ISearchFormProps) => {
                 <Dropdown 
                     id='ddLanguageRequirement' 
                     aria-labelledby='gcx-as-language-requirement-label'
-                    styles={{title: { borderColor: borderColor }}} 
+                    styles={{
+                        ...dropdownStyles,
+                        title: { borderColor: borderColor }
+                    }}
                     options={Globals.getLanguage() === Language.French ? props.languageRequirementListFr : props.languageRequirementListEn} 
                     onChange={(e, option) => { 
                         if (option) {
@@ -282,6 +313,7 @@ const SearchForm = (props: ISearchFormProps) => {
                     }}
                     selectedKey={languageRequirement ? parseInt(languageRequirement, 10) : null} 
                     placeholder={strings.ddPlaceholder}
+                    calloutProps={{styles: calloutStyles}}
                 />
             </div>
 
@@ -484,7 +516,10 @@ const SearchForm = (props: ISearchFormProps) => {
                 <Dropdown 
                     id='ddRegion' 
                     aria-labelledby='gcx-as-location-label'
-                    styles={{title: { borderColor: borderColor }}} 
+                    styles={{
+                        ...dropdownStyles,
+                        title: { borderColor: borderColor }
+                    }} 
                     options={Globals.getLanguage() === Language.French ? props.cityListFr : props.cityListEn} 
                     onChange={(e, option) => { 
                         if (option) {
@@ -496,6 +531,7 @@ const SearchForm = (props: ISearchFormProps) => {
                     }} 
                     selectedKey={city ? parseInt(city, 10) : null} 
                     placeholder={strings.ddPlaceholder}
+                    calloutProps={{styles: calloutStyles}}
                 />
             </div>
             <div>
@@ -509,7 +545,10 @@ const SearchForm = (props: ISearchFormProps) => {
                         <Dropdown 
                             id='ddDurationOperator' 
                             aria-labelledby='gcx-as-duration-label'
-                            styles={{title: { borderColor: borderColor }}} 
+                            styles={{
+                                ...dropdownStyles,
+                                title: { borderColor: borderColor }
+                            }}
                             options={props.durationOperatorsList} 
                             onChange={(e, option) => { 
                                 if (option) {
@@ -521,6 +560,7 @@ const SearchForm = (props: ISearchFormProps) => {
                             }} 
                             selectedKey={durationOperator ? parseInt(durationOperator, 10) : null} 
                             placeholder={strings.ddPlaceholder}
+                            calloutProps={{styles: calloutStyles}}
                         />
                     </Stack>
                     <Stack verticalAlign='center'>
@@ -549,7 +589,10 @@ const SearchForm = (props: ISearchFormProps) => {
                         <Dropdown 
                             id='ddDuration' 
                             aria-labelledby='gcx-as-duration-units-label'
-                            styles={{title: { borderColor: borderColor }}} 
+                            styles={{
+                                ...dropdownStyles,
+                                title: { borderColor: borderColor }
+                            }} 
                             options={Globals.getLanguage() === Language.French ? props.durationListFr : props.durationListEn} 
                             onChange={(e, option) => { 
                                 if (option) {
@@ -561,6 +604,7 @@ const SearchForm = (props: ISearchFormProps) => {
                             }} 
                             selectedKey={duration ? parseInt(duration, 10) : null} 
                             placeholder={strings.ddPlaceholder}
+                            calloutProps={{styles: calloutStyles}}
                         />
                     </Stack>
                 </Stack>

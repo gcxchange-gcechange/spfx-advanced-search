@@ -166,7 +166,8 @@ const SearchForm = (props: ISearchFormProps) => {
             minWidth: '100%'
         },
         dropdownItemsWrapper: {
-            width: 'max-content'
+            width: 'max-content',
+            minWidth: '100%'
         }
     };
 

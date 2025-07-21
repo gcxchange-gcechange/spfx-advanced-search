@@ -185,7 +185,7 @@ const SearchForm = (props: ISearchFormProps) => {
                     </div>
                 </Stack>
                 <TextField 
-                    id='txtJobTitle' 
+                    id='gcx-as-job-title' 
                     aria-labelledby='gcx-as-job-title-label'
                     styles={{fieldGroup: { borderColor: borderColor }}}  
                     onChange={(e) => setJobTitle(e.currentTarget.value)} 

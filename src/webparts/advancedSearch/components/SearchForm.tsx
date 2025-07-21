@@ -610,7 +610,8 @@ const SearchForm = (props: ISearchFormProps) => {
                 <Stack horizontal verticalAlign='center' horizontalAlign="start" tokens={stackTokens}>
                     <DefaultButton 
                         id='advancedSearch-Clear'
-                        aria-label={strings.btnClearAria}
+                        aria-label={strings.Clear}
+                        aria-describedby='gcx-advanced-search-header'
                         onClick={() => {
                             ClearValues();
                         }}
@@ -620,7 +621,8 @@ const SearchForm = (props: ISearchFormProps) => {
 
                     <PrimaryButton 
                         id='advancedSearch-Search'
-                        aria-label={strings.btnSearchAria}
+                        aria-label={strings.Search}
+                        aria-describedby='gcx-advanced-search-header'
                     >
                         {strings.Search}
                     </PrimaryButton>

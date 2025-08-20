@@ -33,7 +33,7 @@ define([], function() {
       "operatorLessThan": "Inférieur ou égal à",
       "operatorGreaterThan": "Supérieur ou égal à",
       "operatorExactly": "Exactement",
-      "durationAmount" : "Durée Montant",
+      "durationAmount" : "Durée montant",
       "durationUnit": "Unité de durée",
       "English": "Anglaise",
       "French": "Français",

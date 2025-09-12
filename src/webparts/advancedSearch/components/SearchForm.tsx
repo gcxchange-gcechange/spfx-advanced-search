@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Stack, TextField, PrimaryButton, DefaultButton, IStackTokens, Dropdown, IDropdownOption, IDropdownStyles, ICalloutContentStyles  } from "@fluentui/react";
+import { Stack, TextField, PrimaryButton, DefaultButton, IStackTokens, Dropdown, IDropdownOption, IDropdownStyles, ICalloutContentStyles, ComboBox, IComboBoxStyles  } from "@fluentui/react";
 import * as React from "react";
 import { Globals, Language } from "../Globals";
 import styles from "./AdvancedSearch.module.scss";
@@ -35,6 +35,7 @@ export enum AdvancedSearchSessionKeys {
     City = 'gcx-cm-adsearch-city'
   }
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const SearchForm = (props: ISearchFormProps) => {
     const strings = Globals.getStrings();
     //const comprehensionDefault = 'CCC-CCC';
@@ -167,6 +168,30 @@ const SearchForm = (props: ISearchFormProps) => {
         }
     };
 
+    const comboBoxStyles: Partial<IComboBoxStyles> = {
+        root: {
+            selectors: {
+            '::after': {
+                borderColor: borderColor,
+            },
+            },
+        },
+        rootHovered: {
+            selectors: {
+            '::after': {
+                borderColor: 'rgb(50, 49, 48)',
+            },
+            },
+        },
+        rootFocused: {
+            selectors: {
+            '::after': {
+                borderColor: 'rgb(3, 120, 124)',
+            },
+            },
+        }
+    }
+
     if (Globals.isOpen()){
         SetSessionKeys();
     } else {
@@ -201,25 +226,27 @@ const SearchForm = (props: ISearchFormProps) => {
                         </b>
                     </div>
                 </Stack>
-                <Dropdown 
-                    id='ddDepartment' 
-                    aria-labelledby='gcx-as-department-label'
-                    styles={{
-                        ...dropdownStyles,
-                        title: { borderColor: borderColor }
-                    }}
-                    options={Globals.getLanguage() === Language.French ? props.departmentListFr : props.departmentListEn} 
-                    onChange={(e, option) => { 
+                <ComboBox
+                    id="ddDepartment"
+                    aria-labelledby="gcx-as-department-label"
+                    styles={comboBoxStyles}
+                    options={
+                        Globals.getLanguage() === Language.French
+                            ? props.departmentListFr
+                            : props.departmentListEn
+                    }
+                    onChange={(e, option) => {
                         if (option) {
                             setDepartment(option.key.toString());
-                        }
-                        else {
+                        } else {
                             setDepartment('');
                         }
                     }}
-                    selectedKey={department ? parseInt(department, 10) : null} 
+                    selectedKey={department ? parseInt(department, 10) : null}
                     placeholder={strings.ddPlaceholder}
-                    calloutProps={{styles: calloutStyles}}
+                    calloutProps={{ styles: calloutStyles }}
+                    autoComplete="on"
+                    useComboBoxAsMenuWidth={true}
                 />
             </div>
             <div>
@@ -231,25 +258,27 @@ const SearchForm = (props: ISearchFormProps) => {
                                 {strings.ClassificationCode}
                             </b>
                         </div>
-                        <Dropdown 
-                            id='ddClassificationCode' 
-                            aria-labelledby='gcx-as-classification-code-label'
-                            styles={{
-                                ...dropdownStyles,
-                                title: { borderColor: borderColor }
-                            }}
-                            options={Globals.getLanguage() === Language.French ? props.classificationCodeListFr : props.classificationCodeListEn} 
-                            onChange={(e, option) => { 
+                        <ComboBox
+                            id="ddClassificationCode"
+                            aria-labelledby="gcx-as-classification-code-label"
+                            styles={comboBoxStyles}
+                            options={
+                                Globals.getLanguage() === Language.French
+                                    ? props.classificationCodeListFr
+                                    : props.classificationCodeListEn
+                            }
+                            onChange={(e, option) => {
                                 if (option) {
                                     setClassificationCode(option.key.toString());
-                                }
-                                else {
+                                } else {
                                     setClassificationCode('');
                                 }
                             }}
                             selectedKey={classificationCode ? parseInt(classificationCode, 10) : null}
-                            placeholder={strings.ddPlaceholder} 
-                            calloutProps={{styles: calloutStyles}}
+                            placeholder={strings.ddPlaceholder}
+                            calloutProps={{ styles: calloutStyles }}
+                            autoComplete="on"
+                            useComboBoxAsMenuWidth={true}
                         />
                     </Stack>
                     <Stack verticalAlign='center' role='group' aria-labelledby='gcx-as-classification-level-label'>
@@ -510,25 +539,27 @@ const SearchForm = (props: ISearchFormProps) => {
                         </b>
                     </div>
                 </Stack>
-                <Dropdown 
-                    id='ddRegion' 
-                    aria-labelledby='gcx-as-location-label'
-                    styles={{
-                        ...dropdownStyles,
-                        title: { borderColor: borderColor }
-                    }} 
-                    options={Globals.getLanguage() === Language.French ? props.cityListFr : props.cityListEn} 
-                    onChange={(e, option) => { 
+                <ComboBox
+                    id="ddRegion"
+                    aria-labelledby="gcx-as-location-label"
+                    styles={comboBoxStyles}
+                    options={
+                        Globals.getLanguage() === Language.French
+                            ? props.cityListFr
+                            : props.cityListEn
+                    }
+                    onChange={(e, option) => {
                         if (option) {
                             setCity(option.key.toString());
-                        }
-                        else {
+                        } else {
                             setCity('');
                         }
-                    }} 
-                    selectedKey={city ? parseInt(city, 10) : null} 
+                    }}
+                    selectedKey={city ? parseInt(city, 10) : null}
                     placeholder={strings.ddPlaceholder}
-                    calloutProps={{styles: calloutStyles}}
+                    calloutProps={{ styles: calloutStyles }}
+                    autoComplete="on"
+                    useComboBoxAsMenuWidth={true}
                 />
             </div>
             <div>

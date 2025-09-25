@@ -15,7 +15,6 @@ import { getSP } from '../../../pnpjsConfig';
 import SearchForm from './SearchForm';
 import { Globals, Language } from '../Globals';
 import { DefaultButton, Icon } from '@fluentui/react';
-import { Buffer } from 'buffer';
 import { SessionController } from '../SessionController';
 
 const classificationCodeListEn: IDropdownOption[] = [];
@@ -95,7 +94,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
       
       for(const k in data){
         classificationCodeListEn.push({key:data[k].ID, text: data[k].NameEn});
-        classificationCodeListFr.push({key:data[k].ID, text: data[k].NameFr});
+        classificationCodeListFr.push({key:data[k].ID, text: reacthandler.decode(data[k].NameFr)});
       }
 
       classificationCodeListEn.sort((a, b) => a.text.localeCompare(b.text));
@@ -111,7 +110,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
       
       for(const k in data){
         classificationLevelListEn.push({key:data[k].ID, text: data[k].NameEn});
-        classificationLevelListFr.push({key:data[k].ID, text: data[k].NameFr});
+        classificationLevelListFr.push({key:data[k].ID, text: reacthandler.decode(data[k].NameFr)});
       }
 
       reacthandler.setState({classificationLevelListEn, classificationLevelListFr});
@@ -124,7 +123,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
       
       for(const k in data){
         departmentListEn.push({key:data[k].ID, text: data[k].NameEn});
-        departmentListFr.push({key:data[k].ID, text: reacthandler.fixEncoding(data[k].NameFr)});
+        departmentListFr.push({key:data[k].ID, text: reacthandler.decode(data[k].NameFr)});
       }
 
       departmentListEn.sort((a, b) => a.text.localeCompare(b.text));
@@ -140,7 +139,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
       
       for(const k in data){
         durationListEn.push({key:data[k].ID, text: data[k].NameEn});
-        durationListFr.push({key:data[k].ID, text: data[k].NameFr});
+        durationListFr.push({key:data[k].ID, text: reacthandler.decode(data[k].NameFr)});
       }
 
       reacthandler.setState({durationListEn, durationListFr});
@@ -153,7 +152,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
       
       for(const k in data){
         languageRequirementListEn.push({key:data[k].ID, text: data[k].NameEn});
-        languageRequirementListFr.push({key:data[k].ID, text: data[k].NameFr});
+        languageRequirementListFr.push({key:data[k].ID, text: reacthandler.decode(data[k].NameFr)});
       }
 
       reacthandler.setState({languageRequirementListEn, languageRequirementListFr});
@@ -165,8 +164,8 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
       cityListFr.length = 0;
       
       for(const k in data){
-        cityListEn.push({key:data[k].ID, text: data[k].NameEn});
-        cityListFr.push({key:data[k].ID, text: data[k].NameFr});
+        cityListEn.push({key:data[k].ID, text: reacthandler.decode(data[k].NameEn)});
+        cityListFr.push({key:data[k].ID, text: reacthandler.decode(data[k].NameFr)});
       }
 
       cityListEn.sort((a, b) => a.text.localeCompare(b.text));
@@ -182,6 +181,12 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
     durationOperatorList.push({ key: 2, text: strings.operatorLessThan});
 
     reacthandler.setState({durationOperatorList});
+  }
+
+  // Fix encoding issues. Using deprecated escape function is safest/realiable way I found...
+  private decode(s: string) {
+    // @ts-ignore
+    return decodeURIComponent(escape(s));
   }
 
   public render(): React.ReactElement<IAdvancedSearchProps> {
@@ -233,10 +238,5 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
         </div>
     </section>
     );
-  }
-
-  private fixEncoding(input: string): string {
-    const buffer = Buffer.from(input, 'binary');
-    return buffer.toString('utf8');
   }
 }

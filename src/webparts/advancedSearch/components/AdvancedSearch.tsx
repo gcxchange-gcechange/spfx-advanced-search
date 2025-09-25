@@ -186,7 +186,7 @@ export default class AdvancedSearch extends React.Component<IAdvancedSearchProps
   // Fix encoding issues. Using deprecated escape function is safest/realiable way I found...
   private decode(s: string) {
     // @ts-ignore
-    return decodeURIComponent(escape(s));
+    return decodeURIComponent(s);
   }
 
   public render(): React.ReactElement<IAdvancedSearchProps> {

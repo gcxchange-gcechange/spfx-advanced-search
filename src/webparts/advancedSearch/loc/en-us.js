@@ -15,8 +15,8 @@ define([], function() {
     "AppOfficeEnvironment": "The app is running in office.com",
     "AppOutlookEnvironment": "The app is running in Outlook",
     "UnknownEnvironment": "The app is running in an unknown environment",
-    "JobTitle": "Job title",
-    "Department": "Department",
+    "JobTitle": "Opportunity title",
+    "Department": "GC organization",
     "ClassificationCode": "Classification code",
     "Level": "Classification level",
     "LanguageRequirement": "Language requirement",
@@ -29,7 +29,7 @@ define([], function() {
     "btnExpanderOpen": "Click to close Advanced Search",
     "btnExpanderClosed": "Click to open Advanced Search",
     "btnClearAria": "Click to clear all your Advanced Search selection options.",
-    "btnSearchAria": "Click to begin your advanced search for job opportunities.",
+    "btnSearchAria": "Click to begin your advanced search for opportunities.",
     "operatorLessThan": "Less or equal to",
     "operatorGreaterThan": "Greater or equal to",
     "operatorExactly": "Exactly",
@@ -41,6 +41,6 @@ define([], function() {
     "Written": "Written expression",
     "Oral": "Oral expression",
     "ddPlaceholder": "--Choose one--",
-    "titlePlaceholder": "--Enter a job title--",
+    "titlePlaceholder": "--Enter an opportunity title--",
   }
 });
